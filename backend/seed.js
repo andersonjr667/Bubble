@@ -39,7 +39,7 @@ async function seed() {
     const user = new User({
       name: nomes[i],
       email: `user${i + 1}@bubble.com`,
-      passwordHash: await require('bcrypt').hash('senha1234', 10),
+      passwordHash: await require('bcryptjs').hash('senha1234', 10),
       age: 18 + Math.floor(Math.random() * 15),
       bio: bios[i % bios.length],
       avatarUrl: `/assets/avatars/avatar${(i % 6) + 1}.png`,

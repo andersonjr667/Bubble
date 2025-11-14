@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const { overlapCount } = require('../utils/overlap');
 const { validateRegister } = require('../utils/validate');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 // GET /api/users
 exports.list = async (req, res, next) => {
