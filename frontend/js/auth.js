@@ -55,9 +55,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function showToast(msg) {
   let toast = document.createElement('div');
-  toast.className = 'toast';
+  toast.classList.add('toast');
+
   toast.innerText = msg;
   document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 3000);
+  // Forçar reflow para garantir a transição
+  void toast.offsetWidth;
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300); // Remover após a transição
+  }, 3000);
 }
 window.showToast = showToast;

@@ -4,31 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Bubble</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header class="bubble-header">
     <div class="header-left">
       <img src="assets/logo-bubble.svg" alt="Logo Bubble" style="height:40px;vertical-align:middle;margin-right:10px;">
-      <span class="bubble-title">Bubble</span>
+      <h1 class="bubble-title">Bubble</h1>
     </div>
     <nav class="header-right" id="header-nav">
-      <a href="cadastro.html" class="header-link" id="link-cadastro">Cadastro</a>
-      <a href="login.html" class="header-link" id="link-login">Login</a>
       <a href="conhecer.html" class="header-link" id="link-conhecer">Conhecer Pessoas</a>
       <a href="perfil.html" class="header-link" id="link-perfil">Perfil</a>
       <a href="chat.html" class="header-link" id="link-chat">Chat</a>
+      <a href="cadastro.html" class="header-button" id="link-cadastro">Cadastro</a>
+      <a href="login.html" class="header-button" id="link-login">Login</a>
     </nav>
   </header>
   <main>
-    <h2>Login</h2>
-    <form id="login-form">
-      <label for="email">Email</label>
-      <input name="email" id="email" type="email" placeholder="Email" required>
-      <label for="password">Senha</label>
-      <input name="password" id="password" type="password" placeholder="Senha" required>
-      <button type="submit">Entrar</button>
-    </form>
+    <section class="form-container">
+      <h2>Login</h2>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input name="email" id="email" type="email" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input name="password" id="password" type="password" placeholder="Senha" required>
+        </div>
+        <button type="submit" class="btn-primary">Entrar</button>
+        <a href="cadastro.html" class="link-secondary">Ainda não tem conta? Cadastre-se</a>
+      </form>
+    </section>
   </main>
   <script type="module" src="js/header.js"></script>
   <script type="module" src="js/auth.js"></script>
