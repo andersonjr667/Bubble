@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conhecer Pessoas - Bubble</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="bubble-header">
+    <div class="header-left">
+      <img src="assets/logo-bubble.svg" alt="Logo Bubble" style="height:40px;vertical-align:middle;margin-right:10px;">
+      <span class="bubble-title">Bubble</span>
+    </div>
+    <nav class="header-right" id="header-nav">
+      <a href="cadastro.html" class="header-link" id="link-cadastro">Cadastro</a>
+      <a href="login.html" class="header-link" id="link-login">Login</a>
+      <a href="conhecer.html" class="header-link" id="link-conhecer">Conhecer Pessoas</a>
+      <a href="perfil.html" class="header-link" id="link-perfil">Perfil</a>
+      <a href="chat.html" class="header-link" id="link-chat">Chat</a>
+    </nav>
+  </header>
+  <main>
+    <section class="tinder-section" style="display:flex;justify-content:center;align-items:center;min-height:60vh;">
+      <div class="tinder-card profile-card" id="tinder-card" style="max-width:370px;width:100%;padding:2em 1.5em;display:flex;flex-direction:column;align-items:center;box-shadow:0 8px 32px rgba(14,111,255,0.18);border-radius:22px;background:var(--branco);">
+        <img src="/assets/avatars/avatar1.png" alt="Avatar" class="profile-avatar" id="tinder-avatar" style="width:110px;height:110px;">
+        <h3 class="profile-name" id="tinder-name" style="font-size:1.5em;margin:0.5em 0 0.2em 0;">Nome da Pessoa</h3>
+        <p class="profile-age" id="tinder-age" style="margin:0;color:var(--azul);font-weight:bold;">Idade: </p>
+        <p class="profile-bio" id="tinder-bio" style="margin:0.7em 0 0.5em 0;color:#444;">Bio curta da pessoa...</p>
+        <div class="profile-gostos" id="tinder-gostos" style="margin-bottom:1em;flex-wrap:wrap;gap:0.4em;justify-content:center;"></div>
+        <div class="tinder-actions" style="display:flex;gap:1.2em;margin-top:1em;">
+          <button class="btn-pass" id="btn-pass" title="Passar" style="background:#eee;color:#888;border-radius:50%;width:48px;height:48px;font-size:1.5em;border:none;box-shadow:0 2px 8px rgba(14,111,255,0.08);cursor:pointer;">&#10006;</button>
+          <button class="btn-like" id="btn-like" title="Curtir" style="background:var(--azul-medio,#357bff);color:#fff;border-radius:50%;width:56px;height:56px;font-size:1.7em;border:none;box-shadow:0 2px 8px rgba(14,111,255,0.12);cursor:pointer;">&#10084;</button>
+          <button class="btn-chat" id="btn-chat" title="Conversar" style="background:var(--amarelo,#e5a734);color:var(--preto);border-radius:50%;width:48px;height:48px;font-size:1.3em;border:none;box-shadow:0 2px 8px rgba(14,111,255,0.08);cursor:pointer;">&#128172;</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="js/header.js"></script>
+  <script type="module" src="js/conhecer-view.js"></script>
+</body>
+</html>

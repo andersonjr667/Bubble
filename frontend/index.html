@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bubble — Conecte por interesses</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="bubble-header">
+    <div class="header-left">
+      <img src="assets/logo-bubble.svg" alt="Logo Bubble" style="height:40px;vertical-align:middle;margin-right:10px;">
+      <span class="bubble-title">Bubble</span>
+    </div>
+    <nav class="header-right" id="header-nav">
+      <a href="cadastro.html" class="header-link" id="link-cadastro">Cadastro</a>
+      <a href="login.html" class="header-link" id="link-login">Login</a>
+      <a href="conhecer.html" class="header-link" id="link-conhecer">Conhecer Pessoas</a>
+      <a href="perfil.html" class="header-link" id="link-perfil">Perfil</a>
+      <a href="chat.html" class="header-link" id="link-chat">Chat</a>
+    </nav>
+  </header>
+  <main>
+    <section class="welcome-info" style="text-align:center;max-width:600px;margin:2em auto 1em auto;">
+      <h2>Bem-vindo ao Bubble!</h2>
+      <p>O Bubble é um app para conectar pessoas por gostos e interesses, focado em criar novas amizades de forma leve e divertida.<br>
+      Escolha seus gostos, encontre pessoas parecidas ou diferentes, e comece uma conversa apertando o botão <b>Bubble</b> no perfil!</p>
+    </section>
+  </main>
+  <footer class="bubble-footer" style="text-align:center;">
+    Bubble — Desenvolvido por Anderson Jr
+  </footer>
+  <script type="module" src="js/header.js"></script>
+  <script>
+    function updateHeaderLinks() {
+      const token = localStorage.getItem('bubble_token');
+      document.getElementById('link-cadastro').style.display = token ? 'none' : '';
+      document.getElementById('link-login').style.display = token ? 'none' : '';
+      document.getElementById('link-conhecer').style.display = token ? '' : 'none';
+      document.getElementById('link-perfil').style.display = token ? '' : 'none';
+      document.getElementById('link-chat').style.display = token ? '' : 'none';
+    }
+    updateHeaderLinks();
+    window.addEventListener('storage', updateHeaderLinks);
+    window.addEventListener('DOMContentLoaded', updateHeaderLinks);
+  </script>
+</body>
+</html>

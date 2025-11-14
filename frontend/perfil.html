@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil - Bubble</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="bubble-header">
+    <div class="header-left">
+      <img src="assets/logo-bubble.svg" alt="Logo Bubble" style="height:40px;vertical-align:middle;margin-right:10px;">
+      <span class="bubble-title">Bubble</span>
+    </div>
+    <nav class="header-right" id="header-nav">
+      <a href="cadastro.html" class="header-link" id="link-cadastro">Cadastro</a>
+      <a href="login.html" class="header-link" id="link-login">Login</a>
+      <a href="conhecer.html" class="header-link" id="link-conhecer">Conhecer Pessoas</a>
+      <a href="perfil.html" class="header-link" id="link-perfil">Perfil</a>
+      <a href="chat.html" class="header-link" id="link-chat">Chat</a>
+    </nav>
+  </header>
+  <main>
+    <section class="profile-section">
+      <div class="profile-card" id="profile-card">
+        <img src="assets/avatars/avatar1.png" alt="Avatar" class="profile-avatar" id="profile-avatar">
+        <h3 class="profile-name" id="profile-name">Seu Nome</h3>
+        <p class="profile-age" id="profile-age">Idade: </p>
+        <p class="profile-bio" id="profile-bio">Sua bio curta...</p>
+        <div class="profile-gostos" id="profile-gostos">Gostos: </div>
+        <div class="profile-actions">
+          <button class="btn-edit" id="btn-edit">Editar Perfil</button>
+          <button class="btn-logout" onclick="logout()">Sair</button>
+          <button class="btn-delete" id="btn-delete" style="background:#e74c3c;color:#fff;margin-left:1em;">Excluir Perfil</button>
+        </div>
+      </div>
+      <form id="edit-form" style="display:none;flex-direction:column;gap:0.5em;margin-top:2em;align-items:center;max-width:400px;margin-left:auto;margin-right:auto;">
+        <h3>Editar Perfil</h3>
+        <input name="name" id="edit-name" type="text" placeholder="Nome" required>
+        <input name="age" id="edit-age" type="number" placeholder="Idade" required>
+        <textarea name="bio" id="edit-bio" placeholder="Bio curta"></textarea>
+        <input name="avatarUrl" id="edit-avatarUrl" type="url" placeholder="URL do avatar">
+        <div class="profile-gostos" id="edit-gostos">
+          <label><input type="checkbox" name="gostos" value="música"> Música</label>
+          <label><input type="checkbox" name="gostos" value="cinema"> Cinema</label>
+          <label><input type="checkbox" name="gostos" value="esportes"> Esportes</label>
+          <label><input type="checkbox" name="gostos" value="leitura"> Leitura</label>
+          <label><input type="checkbox" name="gostos" value="tecnologia"> Tecnologia</label>
+          <label><input type="checkbox" name="gostos" value="viagens"> Viagens</label>
+          <label><input type="checkbox" name="gostos" value="arte"> Arte</label>
+          <label><input type="checkbox" name="gostos" value="games"> Games</label>
+          <label><input type="checkbox" name="gostos" value="culinária"> Culinária</label>
+          <label><input type="checkbox" name="gostos" value="fotografia"> Fotografia</label>
+          <label><input type="checkbox" name="gostos" value="moda"> Moda</label>
+          <label><input type="checkbox" name="gostos" value="dança"> Dança</label>
+          <label><input type="checkbox" name="gostos" value="natureza"> Natureza</label>
+          <label><input type="checkbox" name="gostos" value="animais"> Animais</label>
+          <label><input type="checkbox" name="gostos" value="política"> Política</label>
+          <label><input type="checkbox" name="gostos" value="negócios"> Negócios</label>
+          <label><input type="checkbox" name="gostos" value="ciência"> Ciência</label>
+          <label><input type="checkbox" name="gostos" value="história"> História</label>
+          <label><input type="checkbox" name="gostos" value="carros"> Carros</label>
+          <label><input type="checkbox" name="gostos" value="viagens espaciais"> Viagens Espaciais</label>
+        </div>
+        <button type="submit" style="margin-top:1em;width:100%;font-size:1.1em;">Salvar</button>
+        <button type="button" id="btn-cancel" style="margin-top:0.5em;">Cancelar</button>
+      </form>
+    </section>
+  </main>
+  <script type="module" src="js/header.js"></script>
+  <script type="module" src="js/profile-view.js"></script>
+</body>
+</html>

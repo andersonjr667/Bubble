@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - Bubble</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="bubble-header">
+    <div class="header-left">
+      <img src="assets/logo-bubble.svg" alt="Logo Bubble" style="height:40px;vertical-align:middle;margin-right:10px;">
+      <span class="bubble-title">Bubble</span>
+    </div>
+    <nav class="header-right" id="header-nav">
+      <a href="cadastro.html" class="header-link" id="link-cadastro">Cadastro</a>
+      <a href="login.html" class="header-link" id="link-login">Login</a>
+      <a href="conhecer.html" class="header-link" id="link-conhecer">Conhecer Pessoas</a>
+      <a href="perfil.html" class="header-link" id="link-perfil">Perfil</a>
+      <a href="chat.html" class="header-link" id="link-chat">Chat</a>
+    </nav>
+  </header>
+  <main>
+    <section class="register-section" style="max-width:420px;margin:2em auto;">
+      <h2 style="text-align:center;margin-bottom:1.5em;">Cadastre-se</h2>
+      <form id="register-form" style="width:100%;display:flex;flex-direction:column;gap:0.5em;">
+        <label for="name">Nome</label>
+        <input name="name" id="name" type="text" placeholder="Nome" required>
+        <label for="email">Email</label>
+        <input name="email" id="email" type="email" placeholder="Email" required>
+        <label for="password">Senha</label>
+        <input name="password" id="password" type="password" placeholder="Senha" required>
+        <label for="confirmPassword">Confirme a senha</label>
+        <input name="confirmPassword" id="confirmPassword" type="password" placeholder="Confirme a senha" required>
+        <label for="age">Idade</label>
+        <input name="age" id="age" type="number" placeholder="Idade" required>
+        <label for="bio">Bio curta</label>
+        <textarea name="bio" id="bio" placeholder="Bio curta"></textarea>
+        <div class="profile-gostos" style="width:100%;margin-bottom:1em;">
+          <label style="width:100%;margin-bottom:0.5em;">Gostos:</label>
+          <label><input type="checkbox" name="gostos" value="música"> Música</label>
+          <label><input type="checkbox" name="gostos" value="cinema"> Cinema</label>
+          <label><input type="checkbox" name="gostos" value="esportes"> Esportes</label>
+          <label><input type="checkbox" name="gostos" value="leitura"> Leitura</label>
+          <label><input type="checkbox" name="gostos" value="tecnologia"> Tecnologia</label>
+          <label><input type="checkbox" name="gostos" value="viagens"> Viagens</label>
+          <label><input type="checkbox" name="gostos" value="arte"> Arte</label>
+          <label><input type="checkbox" name="gostos" value="games"> Games</label>
+          <label><input type="checkbox" name="gostos" value="culinária"> Culinária</label>
+          <label><input type="checkbox" name="gostos" value="fotografia"> Fotografia</label>
+          <label><input type="checkbox" name="gostos" value="moda"> Moda</label>
+          <label><input type="checkbox" name="gostos" value="dança"> Dança</label>
+          <label><input type="checkbox" name="gostos" value="natureza"> Natureza</label>
+          <label><input type="checkbox" name="gostos" value="animais"> Animais</label>
+          <label><input type="checkbox" name="gostos" value="política"> Política</label>
+          <label><input type="checkbox" name="gostos" value="negócios"> Negócios</label>
+          <label><input type="checkbox" name="gostos" value="ciência"> Ciência</label>
+          <label><input type="checkbox" name="gostos" value="história"> História</label>
+          <label><input type="checkbox" name="gostos" value="carros"> Carros</label>
+          <label><input type="checkbox" name="gostos" value="viagens espaciais"> Viagens Espaciais</label>
+        </div>
+        <div style="width:100%;margin-bottom:1em;">
+          <label>Avatar:</label>
+          <input name="avatarUrl" type="url" placeholder="URL do avatar" style="margin-bottom:0.5em;">
+          <div class="avatar-options" style="display:flex;gap:0.5em;flex-wrap:wrap;justify-content:center;">
+            <label><input type="radio" name="avatarPadrao" value="avatar1.png"> <img src="assets/avatars/avatar1.png" alt="avatar1"></label>
+            <label><input type="radio" name="avatarPadrao" value="avatar2.png"> <img src="assets/avatars/avatar2.png" alt="avatar2"></label>
+            <label><input type="radio" name="avatarPadrao" value="avatar3.png"> <img src="assets/avatars/avatar3.png" alt="avatar3"></label>
+            <label><input type="radio" name="avatarPadrao" value="avatar4.png"> <img src="assets/avatars/avatar4.png" alt="avatar4"></label>
+            <label><input type="radio" name="avatarPadrao" value="avatar5.png"> <img src="assets/avatars/avatar5.png" alt="avatar5"></label>
+            <label><input type="radio" name="avatarPadrao" value="avatar6.png"> <img src="assets/avatars/avatar6.png" alt="avatar6"></label>
+          </div>
+        </div>
+        <button type="submit" style="margin-top:1em;width:100%;font-size:1.1em;">Cadastrar</button>
+      </form>
+    </section>
+  </main>
+  <script type="module" src="js/header.js"></script>
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>
