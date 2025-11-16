@@ -20,7 +20,7 @@ app.use(helmet());
 // Rate limiting for auth routes
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 min
-  max: 20,
+  max: 100, // aumente para ambiente dev
   handler: (req, res) => {
     res.status(429).json({ message: 'Muitas tentativas. Tente novamente em alguns minutos.' });
   }
