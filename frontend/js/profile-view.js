@@ -25,7 +25,17 @@ async function renderProfile() {
   document.getElementById('profile-name').textContent = user.name;
   document.getElementById('profile-age').textContent = 'Idade: ' + user.age;
   document.getElementById('profile-bio').textContent = user.bio;
-  document.getElementById('profile-gostos').textContent = 'Gostos: ' + (user.gostos ? user.gostos.join(', ') : '');
+  // Exibe gostos como chips estilizados
+  const gostosDiv = document.getElementById('profile-gostos');
+  gostosDiv.innerHTML = '';
+  if (user.gostos && user.gostos.length) {
+    user.gostos.forEach(g => {
+      const span = document.createElement('span');
+      span.className = 'gosto-tag';
+      span.textContent = g;
+      gostosDiv.appendChild(span);
+    });
+  }
   // Preenche formulário de edição
   document.getElementById('edit-name').value = user.name;
   document.getElementById('edit-age').value = user.age;

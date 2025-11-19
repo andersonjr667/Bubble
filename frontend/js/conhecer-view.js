@@ -1,34 +1,101 @@
-import { fetchUsers } from './api.js';
+import { fetchUsers, getMe, createConnection, fetchConnections } from './api.js';
+
+let users = [];
+let currentIndex = 0;
+
 function showLoginMsg() {
-  document.getElementById('tinder-card').innerHTML = '<p>Faça login para conhecer pessoas.</p>';
+  const card = document.getElementById('tinder-card');
+  if (card) card.innerHTML = '<p>Faça login para conhecer pessoas.</p>';
 }
-async function renderTinder() {
-  const token = localStorage.getItem('bubble_token');
-  if (!token) return showLoginMsg();
+
+function createDesktopActions(onPass, onLike, onSuperLike) {
+  const actions = document.createElement('div');
+  actions.className = 'profile-actions profile-actions-desktop';
+  actions.innerHTML = `
+    <button class="btn-pass" title="Passar">&#10006;</button>
+    <button class="btn-super-like" title="Super Like">&#11088;</button>
+    <button class="btn-like" title="Curtir">&#10084;</button>
+  `;
+  actions.querySelector('.btn-pass').onclick = onPass;
+  actions.querySelector('.btn-like').onclick = onLike;
+  actions.querySelector('.btn-super-like').onclick = onSuperLike;
+  return actions;
+}
+
+async function handleLike(type) {
+  if (!users.length || currentIndex >= users.length) return;
+  const user = users[currentIndex];
   try {
-    const res = await fetchUsers();
-    if (!res.users || !res.users.length) {
-      document.getElementById('tinder-card').innerHTML = '<p>Nenhum perfil encontrado.</p>';
-      return;
-    }
-    const user = res.users[0];
-    document.getElementById('tinder-avatar').src = user.avatarUrl || '/assets/avatars/avatar1.png';
-    document.getElementById('tinder-name').textContent = user.name;
-    document.getElementById('tinder-age').textContent = 'Idade: ' + user.age;
-    document.getElementById('tinder-bio').textContent = user.bio;
-    // Exibe gostos como chips
-    const gostosDiv = document.getElementById('tinder-gostos');
-    gostosDiv.innerHTML = '';
-    if (user.gostos && user.gostos.length) {
-      user.gostos.forEach(g => {
-        const span = document.createElement('span');
-        span.textContent = g;
-        gostosDiv.appendChild(span);
-      });
-    }
-  } catch (err) {
-    document.getElementById('tinder-card').innerHTML = `<p style='color:#d00;'>${err.message || 'Erro ao buscar perfis.'}</p>`;
+    await createConnection(user._id); // cria conexão real
+  } catch (err) { /* ignora erro 409 */ }
+  currentIndex++;
+  renderProfile();
+}
+
+function renderProfile() {
+  const stack = document.getElementById('profiles-stack');
+  if (!stack) return;
+  stack.innerHTML = '';
+  if (!users.length || currentIndex >= users.length) {
+    stack.innerHTML = '<div class="empty-state"><h3>Nenhum perfil encontrado.</h3></div>';
+    return;
   }
+  const user = users[currentIndex];
+  const card = document.createElement('div');
+  card.className = 'profile-card';
+  card.innerHTML = `
+    <img src="${user.avatarUrl || 'assets/avatars/avatar1.png'}" alt="Avatar" class="profile-image">
+    <div class="profile-info">
+      <div class="profile-header">
+        <div class="profile-name-age">
+          <h3 class="profile-name">${user.name}</h3>
+          <p class="profile-age">${user.age} anos</p>
+        </div>
+      </div>
+      <p class="profile-bio">${user.bio || ''}</p>
+      <div class="profile-interests">
+        ${(user.gostos || []).map(g => `<span class="interest-tag">${g}</span>`).join(' ')}
+      </div>
+    </div>
+  `;
+  const actions = createDesktopActions(
+    () => { currentIndex++; renderProfile(); }, // Passar
+    () => handleLike('like'), // Curtir
+    () => handleLike('superlike') // Super Like
+  );
+  card.appendChild(actions);
+  stack.appendChild(card);
+}
+
+async function renderTinder() {
+  const stack = document.getElementById('profiles-stack');
+  if (!stack) return;
+  stack.innerHTML = '';
+  const token = localStorage.getItem('bubble_token');
+  if (!token) {
+    stack.innerHTML = '<div class="empty-state"><h3>Faça login para conhecer pessoas.</h3></div>';
+    return;
+  }
+  try {
+    const me = await getMe();
+    const res = await fetchUsers();
+    const connections = await fetchConnections();
+    // Filtra usuários já curtidos/conectados
+    const already = new Set();
+    connections.forEach(c => {
+      if (c.from._id === me._id) already.add(c.to._id);
+      if (c.to._id === me._id) already.add(c.from._id);
+    });
+    users = (res.users || []).filter(u => u._id && u._id !== me._id && !already.has(u._id));
+    currentIndex = 0;
+    renderProfile();
+  } catch (err) {
+    stack.innerHTML = `<div class="empty-state"><h3>${err.message || 'Erro ao buscar perfis.'}</h3></div>`;
+  }
+}
+
+async function renderChatUsers() {
+  // Não faz nada nesta tela
 }
 renderTinder();
 window.addEventListener('storage', renderTinder);

@@ -98,10 +98,31 @@ async function fetchConnections() {
   });
   return res.json();
 }
+async function fetchConversations() {
+  const res = await fetch(BASE_URL + '/chat', {
+    headers: { ...authHeader() }
+  });
+  return res.json();
+}
+async function fetchMessages(userId) {
+  const res = await fetch(BASE_URL + '/chat/' + userId, {
+    headers: { ...authHeader() }
+  });
+  return res.json();
+}
+async function sendMessage(userId, text) {
+  const res = await fetch(BASE_URL + '/chat/' + userId, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...authHeader() },
+    body: JSON.stringify({ text })
+  });
+  return res.json();
+}
 
 export {
   getToken, setToken, removeToken, authHeader,
   register, login, getMe,
   fetchUsers, fetchUser, updateUser, deleteUser,
-  uploadAvatar, createConnection, fetchConnections
+  uploadAvatar, createConnection, fetchConnections,
+  fetchConversations, fetchMessages, sendMessage
 };

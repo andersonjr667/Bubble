@@ -8,6 +8,498 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Estilos específicos para a página de cadastro */
+    .register-container {
+      display: flex;
+      min-height: calc(100vh - 70px);
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, rgba(14, 203, 207, 0.05) 0%, rgba(53, 123, 255, 0.05) 100%);
+    }
+    
+    .register-card {
+      background: var(--branco);
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      max-width: 1000px;
+      width: 100%;
+      display: flex;
+      min-height: 650px;
+    }
+    
+    .register-hero {
+      flex: 1;
+      background: linear-gradient(135deg, var(--ciano-principal) 0%, var(--azul-secundario) 100%);
+      color: var(--branco);
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .register-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="rgba(255,255,255,0.1)"><circle cx="20" cy="20" r="5"/><circle cx="80" cy="40" r="8"/><circle cx="40" cy="80" r="6"/><circle cx="70" cy="70" r="4"/></svg>');
+    }
+    
+    .register-hero h1 {
+      font-size: 2.5em;
+      margin: 0 0 20px 0;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .register-hero p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-features li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+    
+    .hero-features li::before {
+      content: '✓';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      margin-right: 12px;
+      font-weight: bold;
+    }
+    
+    .register-form-section {
+      flex: 1.2;
+      padding: 50px 40px;
+      overflow-y: auto;
+      max-height: 650px;
+    }
+    
+    .form-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .form-header h2 {
+      color: var(--azul-secundario);
+      font-size: 2.2em;
+      margin: 0 0 10px 0;
+      font-weight: 700;
+    }
+    
+    .form-header p {
+      color: var(--cinza-escuro);
+      margin: 0;
+      font-size: 1.1em;
+    }
+    
+    .form-progress {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .form-progress::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--cinza-medio);
+      z-index: 1;
+    }
+    
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .step-indicator {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--cinza-medio);
+      color: var(--branco);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      margin-bottom: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .step-indicator.active {
+      background: var(--azul-secundario);
+    }
+    
+    .step-indicator.completed {
+      background: var(--ciano-principal);
+    }
+    
+    .step-label {
+      font-size: 0.85em;
+      color: var(--cinza-escuro);
+      font-weight: 500;
+      text-align: center;
+    }
+    
+    .step-label.active {
+      color: var(--azul-secundario);
+      font-weight: 600;
+    }
+    
+    .form-step {
+      display: none;
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    .form-step.active {
+      display: block;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .form-full-width {
+      grid-column: 1 / -1;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--preto);
+      font-size: 0.95em;
+    }
+    
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"],
+    .form-group input[type="number"],
+    .form-group input[type="url"],
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--cinza-medio);
+      border-radius: 12px;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      font-size: 1em;
+      background: var(--branco);
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--azul-secundario);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(53, 123, 255, 0.1);
+    }
+    
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    .password-strength {
+      margin-top: 8px;
+      height: 6px;
+      background: var(--cinza-medio);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    
+    .password-strength-bar {
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+      border-radius: 3px;
+    }
+    
+    .password-strength.weak .password-strength-bar {
+      background: #e74c3c;
+      width: 33%;
+    }
+    
+    .password-strength.medium .password-strength-bar {
+      background: #f39c12;
+      width: 66%;
+    }
+    
+    .password-strength.strong .password-strength-bar {
+      background: #2ecc71;
+      width: 100%;
+    }
+    
+    .password-strength-text {
+      font-size: 0.8em;
+      margin-top: 5px;
+      color: var(--cinza-escuro);
+    }
+    
+    .gostos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    
+    .gosto-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      border: 2px solid var(--cinza-medio);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .gosto-option:hover {
+      border-color: var(--ciano-principal);
+      background: rgba(14, 203, 207, 0.05);
+    }
+    
+    .gosto-option.selected {
+      border-color: var(--ciano-principal);
+      background: rgba(14, 203, 207, 0.1);
+    }
+    
+    .gosto-option input {
+      margin: 0;
+      transform: scale(1.1);
+    }
+    
+    .avatar-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .avatar-option {
+      text-align: center;
+      padding: 10px;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .avatar-option:hover {
+      border-color: var(--ciano-principal);
+      transform: translateY(-2px);
+    }
+    
+    .avatar-option.selected {
+      border-color: var(--ciano-principal);
+      background: rgba(14, 203, 207, 0.1);
+    }
+    
+    .avatar-option img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--cinza-claro);
+      transition: all 0.3s ease;
+    }
+    
+    .avatar-option.selected img {
+      border-color: var(--ciano-principal);
+      box-shadow: 0 4px 12px rgba(14, 203, 207, 0.3);
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    
+    .btn-secondary {
+      padding: 14px 24px;
+      background: var(--cinza-medio);
+      color: var(--preto);
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      background: #adb5bd;
+      transform: translateY(-2px);
+    }
+    
+    .btn-primary {
+      padding: 14px 30px;
+      background: var(--gradient-primary);
+      color: var(--branco);
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--sombra-botao);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(14, 203, 207, 0.4);
+    }
+    
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .terms-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .terms-checkbox input {
+      margin-top: 3px;
+    }
+    
+    .terms-checkbox label {
+      font-size: 0.9em;
+      color: var(--cinza-escuro);
+      line-height: 1.5;
+    }
+    
+    .terms-checkbox a {
+      color: var(--azul-secundario);
+      text-decoration: none;
+    }
+    
+    .terms-checkbox a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--gradient-primary);
+      color: var(--branco);
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      z-index: 2000;
+      opacity: 0;
+      transition: all 0.4s ease;
+      font-weight: 500;
+    }
+    
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    /* Responsividade */
+    @media (max-width: 900px) {
+      .register-card {
+        flex-direction: column;
+        max-width: 500px;
+      }
+      
+      .register-hero {
+        padding: 30px 25px;
+      }
+      
+      .register-form-section {
+        padding: 30px 25px;
+        max-height: none;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .gostos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      }
+      
+      .avatar-options {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .form-actions {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .btn-secondary,
+      .btn-primary {
+        width: 100%;
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="bubble-header">
@@ -23,74 +515,267 @@
       <a href="login.html" class="header-button" id="link-login">Login</a>
     </nav>
   </header>
-  <main>
-    <section class="form-container">
-      <h2>Cadastre-se</h2>
-      <form id="register-form">
-        <div class="form-group">
-          <label for="name">Nome</label>
-          <input name="name" id="name" type="text" placeholder="Nome" required>
+  
+  <main class="register-container">
+    <div class="register-card">
+      <!-- Seção Hero -->
+      <div class="register-hero">
+        <h1>Junte-se à Comunidade Bubble</h1>
+        <p>Conecte-se com pessoas que compartilham seus interesses e descubra novas amizades de forma autêntica.</p>
+        
+        <ul class="hero-features">
+          <li>Encontre pessoas com interesses similares</li>
+          <li>Converse de forma leve e descontraída</li>
+          <li>Expanda sua rede de contatos</li>
+          <li>Compartilhe suas paixões</li>
+        </ul>
+      </div>
+      
+      <!-- Seção do Formulário -->
+      <div class="register-form-section">
+        <div class="form-header">
+          <h2>Crie sua conta</h2>
+          <p>Preencha seus dados para começar</p>
         </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input name="email" id="email" type="email" placeholder="Email" required>
-        </div>
-        <div class="form-group">
-          <label for="password">Senha</label>
-          <input name="password" id="password" type="password" placeholder="Senha" required>
-        </div>
-        <div class="form-group">
-          <label for="confirmPassword">Confirme a senha</label>
-          <input name="confirmPassword" id="confirmPassword" type="password" placeholder="Confirme a senha" required>
-        </div>
-        <div class="form-group">
-          <label for="age">Idade</label>
-          <input name="age" id="age" type="number" placeholder="Idade" required>
-        </div>
-        <div class="form-group">
-          <label for="bio">Bio curta</label>
-          <textarea name="bio" id="bio" placeholder="Bio curta"></textarea>
-        </div>
-        <div class="form-group">
-          <label>Gostos:</label>
-          <label><input type="checkbox" name="gostos" value="música"> Música</label>
-          <label><input type="checkbox" name="gostos" value="cinema"> Cinema</label>
-          <label><input type="checkbox" name="gostos" value="esportes"> Esportes</label>
-          <label><input type="checkbox" name="gostos" value="leitura"> Leitura</label>
-          <label><input type="checkbox" name="gostos" value="tecnologia"> Tecnologia</label>
-          <label><input type="checkbox" name="gostos" value="viagens"> Viagens</label>
-          <label><input type="checkbox" name="gostos" value="arte"> Arte</label>
-          <label><input type="checkbox" name="gostos" value="games"> Games</label>
-          <label><input type="checkbox" name="gostos" value="culinária"> Culinária</label>
-          <label><input type="checkbox" name="gostos" value="fotografia"> Fotografia</label>
-          <label><input type="checkbox" name="gostos" value="moda"> Moda</label>
-          <label><input type="checkbox" name="gostos" value="dança"> Dança</label>
-          <label><input type="checkbox" name="gostos" value="natureza"> Natureza</label>
-          <label><input type="checkbox" name="gostos" value="animais"> Animais</label>
-          <label><input type="checkbox" name="gostos" value="política"> Política</label>
-          <label><input type="checkbox" name="gostos" value="negócios"> Negócios</label>
-          <label><input type="checkbox" name="gostos" value="ciência"> Ciência</label>
-          <label><input type="checkbox" name="gostos" value="história"> História</label>
-          <label><input type="checkbox" name="gostos" value="carros"> Carros</label>
-          <label><input type="checkbox" name="gostos" value="viagens espaciais"> Viagens Espaciais</label>
-        </div>
-        <div class="form-group">
-          <label>Avatar:</label>
-          <input name="avatarUrl" type="url" placeholder="URL do avatar">
-          <div class="avatar-options">
-            <label><input type="radio" name="avatarPadrao" value="avatar1.png"> <img src="assets/avatars/avatar1.png" alt="avatar1"></label>
-            <label><input type="radio" name="avatarPadrao" value="avatar2.png"> <img src="assets/avatars/avatar2.png" alt="avatar2"></label>
-            <label><input type="radio" name="avatarPadrao" value="avatar3.png"> <img src="assets/avatars/avatar3.png" alt="avatar3"></label>
-            <label><input type="radio" name="avatarPadrao" value="avatar4.png"> <img src="assets/avatars/avatar4.png" alt="avatar4"></label>
-            <label><input type="radio" name="avatarPadrao" value="avatar5.png"> <img src="assets/avatars/avatar5.png" alt="avatar5"></label>
-            <label><input type="radio" name="avatarPadrao" value="avatar6.png"> <img src="assets/avatars/avatar6.png" alt="avatar6"></label>
+        
+        <!-- Progresso do Formulário -->
+        <div class="form-progress">
+          <div class="progress-step">
+            <div class="step-indicator active">1</div>
+            <div class="step-label active">Informações</div>
+          </div>
+          <div class="progress-step">
+            <div class="step-indicator">2</div>
+            <div class="step-label">Interesses</div>
+          </div>
+          <div class="progress-step">
+            <div class="step-indicator">3</div>
+            <div class="step-label">Avatar</div>
+          </div>
+          <div class="progress-step">
+            <div class="step-indicator">4</div>
+            <div class="step-label">Revisão</div>
           </div>
         </div>
-        <button type="submit" class="btn-primary">Cadastrar</button>
-      </form>
-    </section>
+        
+        <form id="register-form">
+          <!-- Passo 1: Informações Básicas -->
+          <div class="form-step active" id="step-1">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="name">Nome completo</label>
+                <input name="name" id="name" type="text" placeholder="Seu nome completo" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input name="email" id="email" type="email" placeholder="seu.email@exemplo.com" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="password">Senha</label>
+                <input name="password" id="password" type="password" placeholder="Crie uma senha segura" required>
+                <div class="password-strength" id="password-strength">
+                  <div class="password-strength-bar"></div>
+                </div>
+                <div class="password-strength-text" id="password-strength-text">Força da senha</div>
+              </div>
+              
+              <div class="form-group">
+                <label for="confirmPassword">Confirmar senha</label>
+                <input name="confirmPassword" id="confirmPassword" type="password" placeholder="Digite novamente sua senha" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="age">Idade</label>
+                <input name="age" id="age" type="number" placeholder="Sua idade" min="16" max="100" required>
+              </div>
+              
+              <div class="form-group form-full-width">
+                <label for="bio">Bio curta</label>
+                <textarea name="bio" id="bio" placeholder="Conte um pouco sobre você..."></textarea>
+                <small style="color: var(--cinza-escuro);">Máximo de 150 caracteres</small>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <div></div> <!-- Espaço vazio para alinhamento -->
+              <button type="button" class="btn-primary" id="next-1">Continuar</button>
+            </div>
+          </div>
+          
+          <!-- Passo 2: Interesses -->
+          <div class="form-step" id="step-2">
+            <div class="form-group">
+              <label>Seus interesses</label>
+              <p style="color: var(--cinza-escuro); margin-bottom: 15px;">Selecione os temas que mais te interessam para encontrarmos pessoas com gostos similares.</p>
+              
+              <div class="gostos-grid" id="gostos-container">
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="música"> Música
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="cinema"> Cinema
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="esportes"> Esportes
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="leitura"> Leitura
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="tecnologia"> Tecnologia
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="viagens"> Viagens
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="arte"> Arte
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="games"> Games
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="culinária"> Culinária
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="fotografia"> Fotografia
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="moda"> Moda
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="dança"> Dança
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="natureza"> Natureza
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="animais"> Animais
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="política"> Política
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="negócios"> Negócios
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="ciência"> Ciência
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="história"> História
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="carros"> Carros
+                </label>
+                <label class="gosto-option">
+                  <input type="checkbox" name="gostos" value="viagens espaciais"> Viagens Espaciais
+                </label>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="btn-secondary" id="back-2">Voltar</button>
+              <button type="button" class="btn-primary" id="next-2">Continuar</button>
+            </div>
+          </div>
+          
+          <!-- Passo 3: Avatar -->
+          <div class="form-step" id="step-3">
+            <div class="form-group">
+              <label for="avatarUrl">URL do Avatar</label>
+              <input name="avatarUrl" id="avatarUrl" type="url" placeholder="https://exemplo.com/avatar.jpg">
+              <small style="color: var(--cinza-escuro);">Ou selecione um dos avatares padrão abaixo</small>
+            </div>
+            
+            <div class="form-group">
+              <label>Avatar Padrão</label>
+              <div class="avatar-options">
+                <label class="avatar-option">
+                  <input type="radio" name="avatarPadrao" value="avatar1.png" checked>
+                  <img src="assets/avatars/avatar1.png" alt="avatar1">
+                  <div style="margin-top: 8px; font-size: 0.9em;">Avatar 1</div>
+                </label>
+                <label class="avatar-option">
+                  <input type="radio" name="avatarPadrao" value="avatar2.png">
+                  <img src="assets/avatars/avatar2.png" alt="avatar2">
+                  <div style="margin-top: 8px; font-size: 0.9em;">Avatar 2</div>
+                </label>
+                <label class="avatar-option">
+                  <input type="radio" name="avatarPadrao" value="avatar3.png">
+                  <img src="assets/avatars/avatar3.png" alt="avatar3">
+                  <div style="margin-top: 8px; font-size: 0.9em;">Avatar 3</div>
+                </label>
+                <label class="avatar-option">
+                  <input type="radio" name="avatarPadrao" value="avatar4.png">
+                  <img src="assets/avatars/avatar4.png" alt="avatar4">
+                  <div style="margin-top: 8px; font-size: 0.9em;">Avatar 4</div>
+                </label>
+                <label class="avatar-option">
+                  <input type="radio" name="avatarPadrao" value="avatar5.png">
+                  <img src="assets/avatars/avatar5.png" alt="avatar5">
+                  <div style="margin-top: 8px; font-size: 0.9em;">Avatar 5</div>
+                </label>
+                <label class="avatar-option">
+                  <input type="radio" name="avatarPadrao" value="avatar6.png">
+                  <img src="assets/avatars/avatar6.png" alt="avatar6">
+                  <div style="margin-top: 8px; font-size: 0.9em;">Avatar 6</div>
+                </label>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="btn-secondary" id="back-3">Voltar</button>
+              <button type="button" class="btn-primary" id="next-3">Continuar</button>
+            </div>
+          </div>
+          
+          <!-- Passo 4: Revisão -->
+          <div class="form-step" id="step-4">
+            <div class="form-group">
+              <h3 style="margin-bottom: 20px; color: var(--azul-secundario);">Revise suas informações</h3>
+              
+              <div style="background: var(--cinza-claro); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                  <div>
+                    <strong>Nome:</strong>
+                    <div id="review-name">-</div>
+                  </div>
+                  <div>
+                    <strong>Email:</strong>
+                    <div id="review-email">-</div>
+                  </div>
+                  <div>
+                    <strong>Idade:</strong>
+                    <div id="review-age">-</div>
+                  </div>
+                  <div>
+                    <strong>Interesses:</strong>
+                    <div id="review-gostos">-</div>
+                  </div>
+                  <div class="form-full-width">
+                    <strong>Bio:</strong>
+                    <div id="review-bio">-</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="terms-checkbox">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">Concordo com os <a href="#">Termos de Serviço</a> e <a href="#">Política de Privacidade</a> do Bubble</label>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" class="btn-secondary" id="back-4">Voltar</button>
+              <button type="submit" class="btn-primary" id="submit-form">Criar Conta</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </main>
-  <script type="module" src="js/header.js"></script>
+  
   <script type="module" src="js/auth.js"></script>
 </body>
 </html>

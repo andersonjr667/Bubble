@@ -14,7 +14,9 @@ window.addEventListener('DOMContentLoaded', () => {
       if (res.token) {
         setToken(res.token);
         showToast('Login realizado com sucesso!');
-        location.hash = '#discover';
+        setTimeout(() => {
+          window.location.href = 'perfil.html';
+        }, 600);
       } else {
         showToast(res.message || 'Login falhou');
       }
@@ -43,14 +45,97 @@ window.addEventListener('DOMContentLoaded', () => {
       if (res.token) {
         setToken(res.token);
         showToast('Cadastro realizado com sucesso!');
-        location.hash = '#discover';
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 800);
       } else if (res.message && res.message.includes('Email já cadastrado')) {
         showToast('Este email já está cadastrado. Use outro ou faça login.');
       } else {
         showToast(res.message || 'Registro falhou');
       }
     };
+    // Corrige erro de campo não focusable no submit do último passo
+    registerForm.addEventListener('submit', function(e) {
+      const terms = document.getElementById('terms');
+      if (terms && !terms.checked && terms.offsetParent === null) {
+        // Se o campo está required mas não visível, remove o required para evitar erro
+        terms.required = false;
+      }
+    }, true);
   }
+  // Multi-step cadastro avançar/voltar
+  const steps = Array.from(document.querySelectorAll('.form-step'));
+  let currentStep = steps.findIndex(s => s.classList.contains('active'));
+  // Atualiza barra de progresso conforme o passo
+  const progressSteps = Array.from(document.querySelectorAll('.progress-step'));
+  function updateProgress(idx) {
+    progressSteps.forEach((step, i) => {
+      const indicator = step.querySelector('.step-indicator');
+      const label = step.querySelector('.step-label');
+      if (i < idx) {
+        indicator.classList.add('completed');
+        indicator.classList.remove('active');
+        label.classList.remove('active');
+        label.classList.add('completed');
+      } else if (i === idx) {
+        indicator.classList.add('active');
+        indicator.classList.remove('completed');
+        label.classList.add('active');
+        label.classList.remove('completed');
+      } else {
+        indicator.classList.remove('active', 'completed');
+        label.classList.remove('active', 'completed');
+      }
+    });
+  }
+  function showStep(idx) {
+    steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+    currentStep = idx;
+    updateProgress(idx);
+    // Foca no primeiro input visível do passo
+    const firstInput = steps[idx].querySelector('input,select,textarea');
+    if (firstInput) firstInput.focus();
+  }
+  function validateStep(idx) {
+    const step = steps[idx];
+    let valid = true;
+    step.querySelectorAll('input,select,textarea').forEach(input => {
+      if (!input.checkValidity()) valid = false;
+    });
+    return valid;
+  }
+  // Botões avançar
+  const next1 = document.getElementById('next-1');
+  const next2 = document.getElementById('next-2');
+  const next3 = document.getElementById('next-3');
+  if (next1) next1.onclick = () => {
+    if (validateStep(0)) showStep(1); else showToast('Preencha todos os campos obrigatórios.');
+  };
+  if (next2) next2.onclick = () => {
+    if (validateStep(1)) showStep(2); else showToast('Selecione pelo menos 3 interesses.');
+  };
+  // Preenche revisão no passo final
+  function fillReview() {
+    document.getElementById('review-name').textContent = registerForm.name.value;
+    document.getElementById('review-email').textContent = registerForm.email.value;
+    document.getElementById('review-age').textContent = registerForm.age.value;
+    document.getElementById('review-bio').textContent = registerForm.bio.value;
+    const gostos = Array.from(registerForm.querySelectorAll('input[name="gostos"]:checked')).map(i => i.value);
+    document.getElementById('review-gostos').textContent = gostos.join(', ');
+  }
+  if (next3) next3.onclick = () => {
+    if (validateStep(2)) {
+      fillReview();
+      showStep(3);
+    } else showToast('Escolha um avatar.');
+  };
+  // Botões voltar
+  const back2 = document.getElementById('back-2');
+  const back3 = document.getElementById('back-3');
+  const back4 = document.getElementById('back-4');
+  if (back2) back2.onclick = () => showStep(0);
+  if (back3) back3.onclick = () => showStep(1);
+  if (back4) back4.onclick = () => showStep(2);
 });
 
 function showToast(msg) {
