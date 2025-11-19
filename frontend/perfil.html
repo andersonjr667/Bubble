@@ -73,8 +73,8 @@
     }
     
     .highlight-circle {
-      width: 70px;
-      height: 70px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       background: var(--gradient-primary);
       display: flex;
@@ -88,10 +88,11 @@
     }
     
     .highlight-label {
-      font-size: 0.85em;
+      font-size: 1em;
       color: var(--cinza-escuro);
       text-align: center;
-      max-width: 70px;
+      max-width: 90px;
+      margin-top: 6px;
     }
     
     .profile-link {
@@ -343,20 +344,126 @@
     
     /* Formulário de edição */
     .edit-form-container {
-      max-width: 500px;
+      max-width: 520px;
       width: 100%;
-      padding: 30px;
-      background: var(--gradient-card);
-      border-radius: 20px;
-      box-shadow: var(--sombra-card);
-      border: 1px solid rgba(255, 255, 255, 0.8);
+      padding: 36px 32px 28px 32px;
+      background: linear-gradient(120deg, #fafdff 70%, #e3f6f5 100%);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(14,203,207,0.10), 0 1.5px 8px rgba(53,123,255,0.07);
+      border: 1.5px solid #e3f6f5;
       display: none;
       margin: 0 auto;
+      position: relative;
+      z-index: 10;
+      transition: box-shadow 0.2s;
     }
-    
     .edit-form-container.active {
       display: block;
       animation: fadeIn 0.5s ease-out;
+      box-shadow: 0 12px 40px rgba(14,203,207,0.18), 0 2px 12px rgba(53,123,255,0.10);
+    }
+    .edit-form-container h2 {
+      font-size: 2em;
+      color: var(--azul-secundario);
+      font-weight: 800;
+      margin-bottom: 18px;
+      letter-spacing: -1px;
+    }
+    .edit-form-container label,
+    .edit-form-container legend {
+      color: var(--preto);
+      font-weight: 600;
+      font-size: 1em;
+      margin-bottom: 2px;
+    }
+    .edit-form-container input[type="text"],
+    .edit-form-container input[type="number"],
+    .edit-form-container input[type="url"],
+    .edit-form-container textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid var(--cinza-medio);
+      border-radius: 10px;
+      font-size: 1em;
+      background: var(--branco);
+      margin-top: 6px;
+      margin-bottom: 2px;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .edit-form-container input:focus,
+    .edit-form-container textarea:focus {
+      border-color: var(--azul-secundario);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(53,123,255,0.10);
+    }
+    .edit-form-container textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+    .edit-form-container .gostos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .edit-form-container .gosto-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 2px solid var(--cinza-medio);
+      border-radius: 10px;
+      background: #fafdff;
+      cursor: pointer;
+      transition: border 0.2s, background 0.2s;
+      font-size: 1em;
+    }
+    .edit-form-container .gosto-option.selected,
+    .edit-form-container .gosto-option input:checked + img {
+      border-color: var(--ciano-principal);
+      background: rgba(14,203,207,0.07);
+    }
+    .edit-form-container .gosto-option img {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 2px solid #e3f6f5;
+      background: #fff;
+      transition: border 0.2s;
+    }
+    .edit-form-container .gosto-option input[type="checkbox"] {
+      margin: 0 4px 0 0;
+      accent-color: var(--ciano-principal);
+      transform: scale(1.1);
+    }
+    .edit-form-container .gosto-option:hover {
+      border-color: var(--ciano-principal);
+      background: rgba(14,203,207,0.13);
+    }
+    .edit-form-container .gosto-option.selected img {
+      border-color: var(--ciano-principal);
+    }
+    #edit-avatarPreview {
+      margin: 0 auto 10px auto;
+      text-align: center;
+    }
+    #edit-avatarPreview img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid var(--ciano-principal);
+      object-fit: cover;
+      box-shadow: 0 4px 16px rgba(14,203,207,0.13);
+      margin-top: 6px;
+    }
+    .edit-form-container button.btn-edit,
+    .edit-form-container button.btn-logout {
+      font-size: 1.08em;
+      padding: 12px 0;
+      border-radius: 10px;
+      min-width: 120px;
+      box-shadow: 0 2px 8px rgba(53,123,255,0.07);
     }
     
     /* Responsividade - Alternância entre layouts */
@@ -426,8 +533,9 @@
       <a href="conhecer.html" class="header-link" id="link-conhecer">Conhecer Pessoas</a>
       <a href="perfil.html" class="header-link active" id="link-perfil">Perfil</a>
       <a href="chat.html" class="header-link" id="link-chat">Chat</a>
-      <a href="cadastro.html" class="header-button" id="link-cadastro">Cadastro</a>
-      <a href="login.html" class="header-button" id="link-login">Login</a>
+        <a href="cadastro.html" class="header-link" id="link-cadastro" style="display: none;">Cadastro</a>
+        <a href="login.html" class="header-link" id="link-login" style="display: none;">Login</a>
+        <button id="btn-sair" class="header-link btn-sair" style="display:none;margin-left:1em;">Sair</button>
     </nav>
   </header>
   
@@ -435,33 +543,39 @@
     <section class="profile-section">
       <!-- Layout Instagram (Desktop) -->
       <div class="profile-instagram-layout">
-        <div class="profile-instagram-header">
-          <div class="profile-instagram-avatar">
-            <img src="" alt="Avatar" class="profile-avatar" id="profile-avatar">
-          </div>
-          <div class="profile-instagram-main">
-            <div class="profile-instagram-row">
-              <span class="profile-name" id="profile-name"></span>
-              <button class="btn-edit" id="btn-edit"><svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M12.146 2.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708l-1 1-1.5-1.5 1-1zm-1.5 1.5L3.5 10.5 3 13l2.5-.5 6.854-6.854-1.5-1.5z"/></svg> Editar perfil</button>
-              <button class="btn-logout" onclick="logout()"><svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M6 12.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-1 0v1.5H7V11h1.5a.5.5 0 0 0 0-1H7V8.5h2a.5.5 0 0 0 0-1h-2V6h1.5a.5.5 0 0 0 0-1H7V3.5H8.5V5a.5.5 0 0 0 1 0v-2a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5z"/></svg> Sair</button>
-              <button class="btn-delete" id="btn-delete"><svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg> Excluir</button>
+        <div id="profile-card">
+          <div class="profile-instagram-header">
+            <div class="profile-instagram-avatar">
+              <img src="" alt="Avatar" class="profile-avatar" id="profile-avatar">
             </div>
-            <div class="profile-instagram-stats" id="profile-instagram-stats">
-              <span><b id="stat-posts"></b> publicações</span>
-              <span><b id="stat-followers"></b> seguidores</span>
-              <span><b id="stat-following"></b> seguindo</span>
+            <div class="profile-instagram-main">
+              <div class="profile-instagram-row">
+                <span class="profile-name" id="profile-name"></span>
+                <button class="btn-edit" id="btn-edit"><svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M12.146 2.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708l-1 1-1.5-1.5 1-1zm-1.5 1.5L3.5 10.5 3 13l2.5-.5 6.854-6.854-1.5-1.5z"/></svg> Editar perfil</button>
+                <button class="btn-logout" id="btn-logout"><svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M6 12.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-1 0v1.5H7V11h1.5a.5.5 0 0 0 0-1H7V8.5h2a.5.5 0 0 0 0-1h-2V6h1.5a.5.5 0 0 0 0-1H7V3.5H8.5V5a.5.5 0 0 0 1 0v-2a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5z"/></svg> Sair</button>
+                <button class="btn-delete" id="btn-delete"><svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg> Excluir</button>
+                <button class="btn-follow" id="btn-follow" style="display:none;">Seguir</button>
+              </div>
+              <div class="profile-instagram-stats" id="profile-instagram-stats">
+                <span><b id="stat-posts"></b> publicações</span>
+                <span><b id="stat-followers"></b> seguidores</span>
+                <span><b id="stat-following"></b> seguindo</span>
+              </div>
+              <div class="profile-bio" id="profile-bio"></div>
+              <div class="profile-link" id="profile-link-bio"></div>
             </div>
-            <div class="profile-bio" id="profile-bio"></div>
-            <div class="profile-link" id="profile-link-bio"></div>
           </div>
-        </div>
-        
-        <div class="profile-instagram-highlights" id="profile-instagram-highlights">
-          <!-- Destaques dinâmicos -->
-        </div>
-        
-        <div class="profile-gostos" id="profile-gostos">
-          <!-- Gostos dinâmicos -->
+          <div class="profile-instagram-highlights" id="profile-instagram-highlights"></div>
+          <div class="profile-gostos" id="profile-gostos"></div>
+          <!-- QR/Link compartilhável -->
+          <div style="margin:30px 0 0 0;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+            <div id="profile-qr"></div>
+            <div>
+              <label for="profile-link">Compartilhe seu perfil:</label>
+              <input type="text" id="profile-link" readonly style="width:220px;margin-bottom:8px;">
+              <button id="copy-link-btn" type="button">Copiar</button>
+            </div>
+          </div>
         </div>
       </div>
       
@@ -469,15 +583,12 @@
       <div class="profile-tiktok-layout">
         <div class="profile-tiktok-header">
           <div class="profile-tiktok-avatar">
-            <img src="assets/avatars/avatar1.png" alt="Avatar" id="profile-avatar-mobile">
-                      <img src="" alt="Avatar" id="profile-avatar-mobile">
+            <img src="" alt="Avatar" id="profile-avatar-mobile">
           </div>
-          
           <div class="profile-tiktok-info">
             <h1 class="profile-tiktok-name" id="profile-name-mobile"></h1>
             <p class="profile-tiktok-handle" id="profile-handle-mobile"></p>
             <p class="profile-tiktok-bio" id="profile-bio-mobile"></p>
-            
             <div class="profile-tiktok-stats">
               <div class="profile-tiktok-stat">
                 <span class="profile-tiktok-stat-value" id="stat-followers-mobile"></span>
@@ -492,18 +603,22 @@
                 <span class="profile-tiktok-stat-label">Curtidas</span>
               </div>
             </div>
-            
             <div class="profile-tiktok-actions">
               <button class="btn-tiktok-follow">Seguir</button>
               <button class="btn-tiktok-message">Mensagem</button>
             </div>
-            
-            <div class="profile-tiktok-gostos" id="profile-gostos-mobile">
-              <!-- Gostos dinâmicos -->
+            <div class="profile-tiktok-gostos" id="profile-gostos-mobile"></div>
+            <!-- QR/Link compartilhável -->
+            <div style="margin:30px 0 0 0;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+              <div id="profile-qr-mobile"></div>
+              <div>
+                <label for="profile-link-mobile">Compartilhe seu perfil:</label>
+                <input type="text" id="profile-link-mobile" readonly style="width:220px;margin-bottom:8px;">
+                <button id="copy-link-btn-mobile" type="button">Copiar</button>
+              </div>
             </div>
           </div>
         </div>
-        
         <nav class="profile-tiktok-nav">
           <a href="conhecer.html" class="tiktok-nav-item">
             <span class="tiktok-nav-icon">🔍</span>
@@ -521,12 +636,44 @@
       </div>
       
       <!-- Formulário de Edição (comum para ambos) -->
-      <div class="edit-form-container" id="edit-form">
-        <!-- ... conteúdo do formulário de edição ... -->
-      </div>
+      <form class="edit-form-container" id="edit-form" style="display:none;flex-direction:column;gap:22px;">
+        <h2 style="text-align:center;margin-bottom:10px;color:var(--azul-secundario);font-weight:800;">Editar Perfil</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center;">
+          <label style="display:flex;flex-direction:column;font-weight:600;">Nome
+            <input type="text" id="edit-name" name="edit-name" required style="margin-top:6px;">
+          </label>
+          <label style="display:flex;flex-direction:column;font-weight:600;">Idade
+            <input type="number" id="edit-age" name="edit-age" min="0" style="margin-top:6px;">
+          </label>
+        </div>
+        <label style="font-weight:600;">Bio
+          <textarea id="edit-bio" name="edit-bio" rows="3" style="margin-top:6px;"></textarea>
+        </label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center;">
+          <label style="display:flex;flex-direction:column;font-weight:600;">Avatar URL
+            <input type="url" id="edit-avatarUrl" name="edit-avatarUrl" style="margin-top:6px;">
+          </label>
+          <label style="display:flex;flex-direction:column;font-weight:600;">Avatar arquivo
+            <input type="file" id="edit-avatarFile" name="edit-avatarFile" accept="image/*" style="margin-top:6px;">
+          </label>
+        </div>
+        <div id="edit-avatarPreview" style="text-align:center;"></div>
+        <fieldset id="edit-gostos" style="border:none;padding:0;margin:0;">
+          <legend style="font-weight:700;color:var(--azul-secundario);margin-bottom:8px;">Gostos:</legend>
+          <div class="gostos-grid" style="margin-top:0;">
+            <!-- Os gostos com imagens serão inseridos via JS -->
+          </div>
+        </fieldset>
+        <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:10px;">
+          <button type="submit" class="btn-edit" style="min-width:120px;">Salvar</button>
+          <button type="button" class="btn-logout" id="btn-cancel" style="min-width:120px;">Cancelar</button>
+        </div>
+      </form>
     </section>
   </main>
   
+  <script type="module" src="js/profile-view.js"></script>
+  <script type="module" src="js/header.js"></script>
   <script type="module" src="js/profile-share.js"></script>
   <script type="module" src="js/profile-layout.js"></script>
 </body>

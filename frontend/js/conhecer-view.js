@@ -95,13 +95,15 @@ async function renderTinder() {
     const me = await getMe();
     const res = await fetchUsers();
     const connections = await fetchConnections();
-    // Filtra usuários já curtidos/conectados
-    const already = new Set();
+    // Filtra usuários já conectados (match)
+    const connected = new Set();
     connections.forEach(c => {
-      if (c.from._id === me._id) already.add(c.to._id);
-      if (c.to._id === me._id) already.add(c.from._id);
+      if (c.status === 'connected') {
+        if (c.from._id === me._id) connected.add(c.to._id);
+        if (c.to._id === me._id) connected.add(c.from._id);
+      }
     });
-    users = (res.users || []).filter(u => u._id && u._id !== me._id && !already.has(u._id));
+    users = (res.users || []).filter(u => u._id && u._id !== me._id && !connected.has(u._id));
     // Carrega passados do localStorage
     try {
       passedIds = JSON.parse(localStorage.getItem('bubble_passed')) || [];
