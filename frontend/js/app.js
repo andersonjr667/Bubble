@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
     showView('welcome');
   } else {
     // Checa se o usuário já respondeu o questionário
-    fetch('http://localhost:3000/api/auth/me', {
+    fetch('https://bubble-gnfj.onrender.com/api/auth/me', {
       headers: { 'Authorization': 'Bearer ' + token }
     })
       .then(res => res.json())

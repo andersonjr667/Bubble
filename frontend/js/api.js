@@ -1,5 +1,5 @@
 // API client para Bubble
-const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = 'https://bubble-gnfj.onrender.com/api';
 
 function getToken() {
   return localStorage.getItem('bubble_token');
