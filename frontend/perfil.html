@@ -13,49 +13,244 @@
       margin: 0 auto;
     }
     
-    .profile-container {
+    /* Layout Instagram (Desktop) */
+    .profile-instagram-layout {
+      display: block;
+    }
+    
+    .profile-instagram-header {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      margin-bottom: 40px;
+    }
+    
+    .profile-instagram-avatar {
+      flex-shrink: 0;
+    }
+    
+    .profile-instagram-main {
+      flex: 1;
+    }
+    
+    .profile-instagram-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .profile-instagram-stats {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+    
+    .profile-instagram-stats span {
+      font-size: 1em;
+      color: var(--preto);
+    }
+    
+    .profile-instagram-stats b {
+      color: var(--azul-secundario);
+    }
+    
+    .profile-instagram-highlights {
+      display: flex;
+      gap: 25px;
+      margin-bottom: 30px;
+      padding: 20px 0;
+      overflow-x: auto;
+    }
+    
+    .highlight-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 30px;
+      gap: 8px;
+      cursor: pointer;
     }
     
-    .profile-card {
-      max-width: 500px;
-      width: 100%;
-      padding: 30px;
-      background: var(--gradient-card);
-      border-radius: 20px;
-      box-shadow: var(--sombra-card);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .profile-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 8px;
+    .highlight-circle {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
       background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2em;
+      border: 3px solid var(--branco);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     
+    .highlight-label {
+      font-size: 0.85em;
+      color: var(--cinza-escuro);
+      text-align: center;
+      max-width: 70px;
+    }
+    
+    .profile-link {
+      color: var(--azul-secundario);
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    
+    /* Layout TikTok (Mobile) */
+    .profile-tiktok-layout {
+      display: none;
+    }
+    
+    .profile-tiktok-header {
+      position: relative;
+      height: 100vh;
+      background: linear-gradient(135deg, #000 0%, #333 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px;
+    }
+    
+    .profile-tiktok-avatar {
+      position: absolute;
+      top: 50px;
+      left: 20px;
+      z-index: 2;
+    }
+    
+    .profile-tiktok-avatar img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid var(--ciano-principal);
+      box-shadow: 0 4px 15px rgba(14, 203, 207, 0.4);
+    }
+    
+    .profile-tiktok-info {
+      margin-bottom: 80px;
+    }
+    
+    .profile-tiktok-name {
+      font-size: 1.5em;
+      font-weight: 700;
+      margin: 0 0 8px 0;
+    }
+    
+    .profile-tiktok-handle {
+      color: rgba(255,255,255,0.8);
+      margin: 0 0 15px 0;
+    }
+    
+    .profile-tiktok-bio {
+      margin: 0 0 20px 0;
+      line-height: 1.5;
+    }
+    
+    .profile-tiktok-stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .profile-tiktok-stat {
+      text-align: center;
+    }
+    
+    .profile-tiktok-stat-value {
+      font-size: 1.2em;
+      font-weight: 700;
+      display: block;
+    }
+    
+    .profile-tiktok-stat-label {
+      font-size: 0.85em;
+      opacity: 0.8;
+    }
+    
+    .profile-tiktok-actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+    
+    .btn-tiktok-follow {
+      flex: 1;
+      background: var(--ciano-principal);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-weight: 600;
+      font-size: 1em;
+    }
+    
+    .btn-tiktok-message {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-weight: 600;
+    }
+    
+    .profile-tiktok-gostos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 30px;
+    }
+    
+    .gosto-tag-tiktok {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 0.85em;
+    }
+    
+    .profile-tiktok-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      z-index: 100;
+    }
+    
+    .tiktok-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+      font-size: 0.8em;
+    }
+    
+    .tiktok-nav-item.active {
+      color: var(--ciano-principal);
+    }
+    
+    .tiktok-nav-icon {
+      font-size: 1.4em;
+      margin-bottom: 4px;
+    }
+    
+    /* Estilos comuns para ambos os layouts */
     .profile-avatar {
-      width: 140px;
-      height: 140px;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
       object-fit: cover;
       border: 4px solid var(--ciano-principal);
-      margin: 0 auto 20px;
       box-shadow: 0 8px 25px rgba(14, 203, 207, 0.3);
-      transition: transform 0.3s ease;
-    }
-    
-    .profile-avatar:hover {
-      transform: scale(1.05);
     }
     
     .profile-name {
@@ -65,19 +260,11 @@
       font-weight: 700;
     }
     
-    .profile-age {
-      margin: 0 0 15px 0;
-      color: var(--azul-secundario);
-      font-weight: 600;
-      font-size: 1.1em;
-    }
-    
     .profile-bio {
       margin: 0 0 25px 0;
       color: var(--cinza-escuro);
       line-height: 1.6;
       font-size: 1.05em;
-      padding: 0 10px;
     }
     
     .profile-gostos {
@@ -96,12 +283,6 @@
       font-size: 0.9em;
       font-weight: 500;
       box-shadow: 0 2px 8px rgba(14, 203, 207, 0.2);
-      transition: all 0.3s ease;
-    }
-    
-    .gosto-tag:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(14, 203, 207, 0.3);
     }
     
     .profile-actions {
@@ -170,6 +351,7 @@
       box-shadow: var(--sombra-card);
       border: 1px solid rgba(255, 255, 255, 0.8);
       display: none;
+      margin: 0 auto;
     }
     
     .edit-form-container.active {
@@ -177,203 +359,51 @@
       animation: fadeIn 0.5s ease-out;
     }
     
-    .edit-form-header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    
-    .edit-form-header h3 {
-      color: var(--azul-secundario);
-      font-size: 1.8em;
-      margin: 0 0 10px 0;
-    }
-    
-    .edit-form-header p {
-      color: var(--cinza-escuro);
-      margin: 0;
-    }
-    
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    
-    .form-full-width {
-      grid-column: 1 / -1;
-    }
-    
-    .form-group {
-      margin-bottom: 20px;
-    }
-    
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: var(--preto);
-      font-size: 0.95em;
-    }
-    
-    .form-group input[type="text"],
-    .form-group input[type="number"],
-    .form-group input[type="url"],
-    .form-group textarea {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid var(--cinza-medio);
-      border-radius: 12px;
-      box-sizing: border-box;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-      font-size: 1em;
-      background: var(--branco);
-    }
-    
-    .form-group input:focus,
-    .form-group textarea:focus {
-      border-color: var(--azul-secundario);
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(53, 123, 255, 0.1);
-    }
-    
-    .form-group textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-    
-    .gostos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 12px;
-      margin-top: 10px;
-    }
-    
-    .gosto-option {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px;
-      border: 2px solid var(--cinza-medio);
-      border-radius: 10px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    
-    .gosto-option:hover {
-      border-color: var(--ciano-principal);
-      background: rgba(14, 203, 207, 0.05);
-    }
-    
-    .gosto-option input {
-      margin: 0;
-      transform: scale(1.1);
-    }
-    
-    .form-actions {
-      display: flex;
-      gap: 15px;
-      margin-top: 25px;
-    }
-    
-    .btn-save {
-      flex: 1;
-      padding: 14px;
-      background: var(--gradient-primary);
-      color: var(--branco);
-      border: none;
-      border-radius: 12px;
-      font-size: 1.1em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: var(--sombra-botao);
-    }
-    
-    .btn-save:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(14, 203, 207, 0.4);
-    }
-    
-    .btn-cancel {
-      padding: 14px 24px;
-      background: var(--cinza-medio);
-      color: var(--preto);
-      border: none;
-      border-radius: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .btn-cancel:hover {
-      background: #adb5bd;
-      transform: translateY(-2px);
-    }
-    
-    /* Estatísticas do perfil */
-    .profile-stats {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
-    
-    .stat-item {
-      text-align: center;
-      padding: 15px;
-      background: var(--branco);
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      min-width: 100px;
-    }
-    
-    .stat-value {
-      font-size: 1.8em;
-      font-weight: 700;
-      color: var(--azul-secundario);
-      margin-bottom: 5px;
-    }
-    
-    .stat-label {
-      font-size: 0.9em;
-      color: var(--cinza-escuro);
-    }
-    
-    /* Responsividade */
+    /* Responsividade - Alternância entre layouts */
     @media (max-width: 768px) {
-      .profile-card,
-      .edit-form-container {
-        max-width: 100%;
-        padding: 20px;
+      /* Esconder layout Instagram no mobile */
+      .profile-instagram-layout {
+        display: none;
       }
       
-      .form-grid {
-        grid-template-columns: 1fr;
+      /* Mostrar layout TikTok no mobile */
+      .profile-tiktok-layout {
+        display: block;
       }
       
-      .profile-actions {
-        flex-direction: column;
-        align-items: center;
+      /* Ajustes para mobile */
+      .profile-section {
+        padding: 0;
       }
       
-      .btn-edit,
-      .btn-logout,
-      .btn-delete {
-        width: 100%;
-        justify-content: center;
+      body {
+        background: #000;
+        padding-top: 0;
       }
       
-      .gostos-grid {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      }
-      
-      .form-actions {
-        flex-direction: column;
+      .bubble-header {
+        display: none;
       }
     }
     
+    @media (min-width: 769px) {
+      /* Esconder layout TikTok no desktop */
+      .profile-tiktok-layout {
+        display: none;
+      }
+      
+      /* Mostrar layout Instagram no desktop */
+      .profile-instagram-layout {
+        display: block;
+      }
+      
+      /* Estilo Instagram para desktop */
+      .profile-section {
+        background: linear-gradient(120deg, #f8fafc 60%, #e3f6f5 100%);
+        min-height: 100vh;
+      }
+    }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -403,153 +433,101 @@
   
   <main>
     <section class="profile-section">
-      <div class="profile-container">
-        <!-- Card de Visualização do Perfil -->
-        <div class="profile-card" id="profile-card">
-          <img src="assets/avatars/avatar1.png" alt="Avatar" class="profile-avatar" id="profile-avatar">
-          <h3 class="profile-name" id="profile-name">Ana Silva</h3>
-          <p class="profile-age" id="profile-age">Idade: 28 anos</p>
-          <p class="profile-bio" id="profile-bio">Apaixonada por música, viagens e tecnologia. Sempre em busca de novas experiências e conexões significativas!</p>
-          
-          <div class="profile-gostos" id="profile-gostos">
-            <span class="gosto-tag">Música</span>
-            <span class="gosto-tag">Viagens</span>
-            <span class="gosto-tag">Tecnologia</span>
-            <span class="gosto-tag">Fotografia</span>
-            <span class="gosto-tag">Culinária</span>
+      <!-- Layout Instagram (Desktop) -->
+      <div class="profile-instagram-layout">
+        <div class="profile-instagram-header">
+          <div class="profile-instagram-avatar">
+            <img src="" alt="Avatar" class="profile-avatar" id="profile-avatar">
           </div>
-          
-          <div class="profile-stats">
-            <div class="stat-item">
-              <div class="stat-value">42</div>
-              <div class="stat-label">Conexões</div>
+          <div class="profile-instagram-main">
+            <div class="profile-instagram-row">
+              <span class="profile-name" id="profile-name"></span>
+              <button class="btn-edit" id="btn-edit"><svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M12.146 2.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708l-1 1-1.5-1.5 1-1zm-1.5 1.5L3.5 10.5 3 13l2.5-.5 6.854-6.854-1.5-1.5z"/></svg> Editar perfil</button>
+              <button class="btn-logout" onclick="logout()"><svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M6 12.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-1 0v1.5H7V11h1.5a.5.5 0 0 0 0-1H7V8.5h2a.5.5 0 0 0 0-1h-2V6h1.5a.5.5 0 0 0 0-1H7V3.5H8.5V5a.5.5 0 0 0 1 0v-2a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5z"/></svg> Sair</button>
+              <button class="btn-delete" id="btn-delete"><svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg> Excluir</button>
             </div>
-            <div class="stat-item">
-              <div class="stat-value">18</div>
-              <div class="stat-label">Interesses</div>
+            <div class="profile-instagram-stats" id="profile-instagram-stats">
+              <span><b id="stat-posts"></b> publicações</span>
+              <span><b id="stat-followers"></b> seguidores</span>
+              <span><b id="stat-following"></b> seguindo</span>
             </div>
-            <div class="stat-item">
-              <div class="stat-value">7</div>
-              <div class="stat-label">Bubbles</div>
-            </div>
-          </div>
-          
-          <div class="profile-actions">
-            <button class="btn-edit" id="btn-edit">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                <path d="M12.146 2.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708l-1 1-1.5-1.5 1-1zm-1.5 1.5L3.5 10.5 3 13l2.5-.5 6.854-6.854-1.5-1.5z"/>
-              </svg>
-              Editar Perfil
-            </button>
-            <button class="btn-logout" onclick="logout()">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                <path d="M6 12.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-1 0v1.5H7V11h1.5a.5.5 0 0 0 0-1H7V8.5h2a.5.5 0 0 0 0-1h-2V6h1.5a.5.5 0 0 0 0-1H7V3.5H8.5V5a.5.5 0 0 0 1 0v-2a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5z"/>
-              </svg>
-              Sair
-            </button>
-            <button class="btn-delete" id="btn-delete">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-              </svg>
-              Excluir Perfil
-            </button>
+            <div class="profile-bio" id="profile-bio"></div>
+            <div class="profile-link" id="profile-link-bio"></div>
           </div>
         </div>
         
-        <!-- Formulário de Edição -->
-        <div class="edit-form-container" id="edit-form">
-          <div class="edit-form-header">
-            <h3>Editar Perfil</h3>
-            <p>Atualize suas informações pessoais e interesses</p>
+        <div class="profile-instagram-highlights" id="profile-instagram-highlights">
+          <!-- Destaques dinâmicos -->
+        </div>
+        
+        <div class="profile-gostos" id="profile-gostos">
+          <!-- Gostos dinâmicos -->
+        </div>
+      </div>
+      
+      <!-- Layout TikTok (Mobile) -->
+      <div class="profile-tiktok-layout">
+        <div class="profile-tiktok-header">
+          <div class="profile-tiktok-avatar">
+            <img src="assets/avatars/avatar1.png" alt="Avatar" id="profile-avatar-mobile">
+                      <img src="" alt="Avatar" id="profile-avatar-mobile">
           </div>
           
-          <form id="profile-edit-form">
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="edit-name">Nome</label>
-                <input name="name" id="edit-name" type="text" placeholder="Seu nome" value="Ana Silva" required>
+          <div class="profile-tiktok-info">
+            <h1 class="profile-tiktok-name" id="profile-name-mobile"></h1>
+            <p class="profile-tiktok-handle" id="profile-handle-mobile"></p>
+            <p class="profile-tiktok-bio" id="profile-bio-mobile"></p>
+            
+            <div class="profile-tiktok-stats">
+              <div class="profile-tiktok-stat">
+                <span class="profile-tiktok-stat-value" id="stat-followers-mobile"></span>
+                <span class="profile-tiktok-stat-label">Seguidores</span>
               </div>
-              
-              <div class="form-group">
-                <label for="edit-age">Idade</label>
-                <input name="age" id="edit-age" type="number" placeholder="Sua idade" value="28" required>
+              <div class="profile-tiktok-stat">
+                <span class="profile-tiktok-stat-value" id="stat-following-mobile"></span>
+                <span class="profile-tiktok-stat-label">Seguindo</span>
               </div>
-              
-              <div class="form-group form-full-width">
-                <label for="edit-bio">Bio</label>
-                <textarea name="bio" id="edit-bio" placeholder="Conte um pouco sobre você">Apaixonada por música, viagens e tecnologia. Sempre em busca de novas experiências e conexões significativas!</textarea>
-              </div>
-              
-              <div class="form-group form-full-width">
-                <label for="edit-avatarUrl">URL do Avatar</label>
-                <input name="avatarUrl" id="edit-avatarUrl" type="url" placeholder="https://exemplo.com/avatar.jpg">
-                <small style="color: var(--cinza-escuro); font-size: 0.85em;">Ou selecione um dos avatares padrão abaixo</small>
-                
-                <div class="avatar-options" style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
-                  <label style="cursor: pointer;">
-                    <input type="radio" name="avatarPadrao" value="avatar1.png" checked>
-                    <img src="assets/avatars/avatar1.png" alt="avatar1" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--cinza-medio);">
-                  </label>
-                  <label style="cursor: pointer;">
-                    <input type="radio" name="avatarPadrao" value="avatar2.png">
-                    <img src="assets/avatars/avatar2.png" alt="avatar2" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--cinza-medio);">
-                  </label>
-                  <label style="cursor: pointer;">
-                    <input type="radio" name="avatarPadrao" value="avatar3.png">
-                    <img src="assets/avatars/avatar3.png" alt="avatar3" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--cinza-medio);">
-                  </label>
-                </div>
-              </div>
-              
-              <div class="form-group form-full-width">
-                <label>Seus Interesses</label>
-                <div class="gostos-grid" id="edit-gostos">
-                  <label class="gosto-option">
-                    <input type="checkbox" name="gostos" value="música" checked> Música
-                  </label>
-                  <label class="gosto-option">
-                    <input type="checkbox" name="gostos" value="cinema"> Cinema
-                  </label>
-                  <label class="gosto-option">
-                    <input type="checkbox" name="gostos" value="esportes"> Esportes
-                  </label>
-                  <label class="gosto-option">
-                    <input type="checkbox" name="gostos" value="leitura"> Leitura
-                  </label>
-                  <label class="gosto-option">
-                    <input type="checkbox" name="gostos" value="tecnologia" checked> Tecnologia
-                  </label>
-                  <label class="gosto-option">
-                    <input type="checkbox" name="gostos" value="viagens" checked> Viagens
-                  </label>
-                  <label class="gosto-option">
-                    <input type="checkbox" name="gostos" value="arte"> Arte
-                  </label>
-                  <label class="gosto-option">
-                    <input type="checkbox" name="gostos" value="games"> Games
-                  </label>
-                  <label class="gosto-option">
-                    <input type="checkbox" name="gostos" value="culinária" checked> Culinária
-                  </label>
-                  <label class="gosto-option">
-                    <input type="checkbox" name="gostos" value="fotografia" checked> Fotografia
-                  </label>
-                </div>
+              <div class="profile-tiktok-stat">
+                <span class="profile-tiktok-stat-value" id="stat-likes-mobile"></span>
+                <span class="profile-tiktok-stat-label">Curtidas</span>
               </div>
             </div>
             
-            <div class="form-actions">
-              <button type="submit" class="btn-save">Salvar Alterações</button>
-              <button type="button" class="btn-cancel" id="btn-cancel">Cancelar</button>
+            <div class="profile-tiktok-actions">
+              <button class="btn-tiktok-follow">Seguir</button>
+              <button class="btn-tiktok-message">Mensagem</button>
             </div>
-          </form>
+            
+            <div class="profile-tiktok-gostos" id="profile-gostos-mobile">
+              <!-- Gostos dinâmicos -->
+            </div>
+          </div>
         </div>
+        
+        <nav class="profile-tiktok-nav">
+          <a href="conhecer.html" class="tiktok-nav-item">
+            <span class="tiktok-nav-icon">🔍</span>
+            <span>Descobrir</span>
+          </a>
+          <a href="perfil.html" class="tiktok-nav-item active">
+            <span class="tiktok-nav-icon">👤</span>
+            <span>Perfil</span>
+          </a>
+          <a href="chat.html" class="tiktok-nav-item">
+            <span class="tiktok-nav-icon">💬</span>
+            <span>Chat</span>
+          </a>
+        </nav>
+      </div>
+      
+      <!-- Formulário de Edição (comum para ambos) -->
+      <div class="edit-form-container" id="edit-form">
+        <!-- ... conteúdo do formulário de edição ... -->
       </div>
     </section>
   </main>
   
-  <script type="module" src="js/profile-view.js"></script>
-  <script type="module" src="js/profile-stats.js"></script>
+  <script type="module" src="js/profile-share.js"></script>
+  <script type="module" src="js/profile-layout.js"></script>
 </body>
 </html>

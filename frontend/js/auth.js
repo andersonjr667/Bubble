@@ -1,4 +1,4 @@
-import { register, login, setToken, getMe } from './api.js';
+import { register, login, setToken, getMe, uploadAvatar } from './api.js';
 
 // Lógica de login/registro
 window.addEventListener('DOMContentLoaded', () => {
@@ -23,8 +23,31 @@ window.addEventListener('DOMContentLoaded', () => {
     };
   }
   if (registerForm) {
+    // Preview da imagem
+    const avatarFile = document.getElementById('avatarFile');
+    const avatarPreview = document.getElementById('avatarPreview');
+    if (avatarFile && avatarPreview) {
+      avatarFile.onchange = function() {
+        if (this.files && this.files[0]) {
+          const reader = new FileReader();
+          reader.onload = e => {
+            avatarPreview.innerHTML = `<img src="${e.target.result}" alt="Preview" style="width:70px;height:70px;border-radius:50%;object-fit:cover;">`;
+          };
+          reader.readAsDataURL(this.files[0]);
+        } else {
+          avatarPreview.innerHTML = '';
+        }
+      };
+    }
     registerForm.onsubmit = async e => {
       e.preventDefault();
+      let avatarUrl = registerForm.avatarUrl.value;
+      // Se o usuário enviou arquivo, faz upload
+      if (avatarFile && avatarFile.files && avatarFile.files[0]) {
+        const up = await uploadAvatar(avatarFile.files[0]);
+        if (up && up.url) avatarUrl = up.url;
+        else return showToast('Falha ao enviar imagem de perfil.');
+      }
       const data = {
         name: registerForm.name.value,
         email: registerForm.email.value,
@@ -33,7 +56,7 @@ window.addEventListener('DOMContentLoaded', () => {
         age: registerForm.age.value,
         gostos: Array.from(registerForm.querySelectorAll('input[name="gostos"]:checked')).map(i => i.value),
         bio: registerForm.bio.value,
-        avatarUrl: registerForm.avatarUrl.value
+        avatarUrl
       };
       if (registerForm.preference) {
         data.preference = registerForm.preference.value;

@@ -2,6 +2,7 @@ import { fetchUsers, getMe, createConnection, fetchConnections } from './api.js'
 
 let users = [];
 let currentIndex = 0;
+let passedIds = [];
 
 function showLoginMsg() {
   const card = document.getElementById('tinder-card');
@@ -22,6 +23,7 @@ function createDesktopActions(onPass, onLike, onSuperLike) {
   return actions;
 }
 
+
 async function handleLike(type) {
   if (!users.length || currentIndex >= users.length) return;
   const user = users[currentIndex];
@@ -32,10 +34,23 @@ async function handleLike(type) {
   renderProfile();
 }
 
+function handlePass() {
+  if (!users.length || currentIndex >= users.length) return;
+  const user = users[currentIndex];
+  passedIds.push(user._id);
+  localStorage.setItem('bubble_passed', JSON.stringify(passedIds));
+  currentIndex++;
+  renderProfile();
+}
+
 function renderProfile() {
   const stack = document.getElementById('profiles-stack');
   if (!stack) return;
   stack.innerHTML = '';
+  // Pula usuários passados
+  while (users.length && currentIndex < users.length && passedIds.includes(users[currentIndex]._id)) {
+    currentIndex++;
+  }
   if (!users.length || currentIndex >= users.length) {
     stack.innerHTML = '<div class="empty-state"><h3>Nenhum perfil encontrado.</h3></div>';
     return;
@@ -59,7 +74,7 @@ function renderProfile() {
     </div>
   `;
   const actions = createDesktopActions(
-    () => { currentIndex++; renderProfile(); }, // Passar
+    handlePass, // Passar
     () => handleLike('like'), // Curtir
     () => handleLike('superlike') // Super Like
   );
@@ -87,6 +102,10 @@ async function renderTinder() {
       if (c.to._id === me._id) already.add(c.from._id);
     });
     users = (res.users || []).filter(u => u._id && u._id !== me._id && !already.has(u._id));
+    // Carrega passados do localStorage
+    try {
+      passedIds = JSON.parse(localStorage.getItem('bubble_passed')) || [];
+    } catch { passedIds = []; }
     currentIndex = 0;
     renderProfile();
   } catch (err) {
@@ -99,3 +118,9 @@ async function renderChatUsers() {
 }
 renderTinder();
 window.addEventListener('storage', renderTinder);
+
+// Permite resetar passados manualmente (opcional)
+window.resetPassed = function() {
+  localStorage.removeItem('bubble_passed');
+  renderTinder();
+};

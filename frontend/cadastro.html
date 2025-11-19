@@ -685,7 +685,9 @@
             <div class="form-group">
               <label for="avatarUrl">URL do Avatar</label>
               <input name="avatarUrl" id="avatarUrl" type="url" placeholder="https://exemplo.com/avatar.jpg">
-              <small style="color: var(--cinza-escuro);">Ou selecione um dos avatares padrão abaixo</small>
+              <small style="color: var(--cinza-escuro);">Ou selecione um dos avatares padrão abaixo ou envie uma imagem:</small>
+              <input type="file" id="avatarFile" accept="image/*" style="margin-top:10px;">
+              <div id="avatarPreview" style="margin-top:10px;"></div>
             </div>
             
             <div class="form-group">
