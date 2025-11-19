@@ -1,4 +1,4 @@
-import { gerarQRCode } from './qr-code.js';
+
 
 window.addEventListener('DOMContentLoaded', async () => {
   let tentativas = 0;
@@ -11,7 +11,9 @@ window.addEventListener('DOMContentLoaded', async () => {
   const url = window.location.origin + '/perfil.html?user=' + userId;
   const linkInput = document.getElementById('profile-link');
   if (linkInput) linkInput.value = url;
-  gerarQRCode('profile-qr', url);
+  if (typeof gerarQRCode === 'function') {
+    gerarQRCode('profile-qr', url);
+  }
   // Copiar link
   const copyBtn = document.getElementById('copy-link-btn');
   if (copyBtn) {

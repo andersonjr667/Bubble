@@ -1,3 +1,177 @@
+/* --- Instagram Mobile Profile --- */
+.profile-instagram-mobile {
+  display: none;
+}
+@media (max-width: 768px) {
+  .profile-instagram-mobile {
+    display: block;
+    background: #fff;
+    min-height: 100vh;
+    padding-bottom: 70px;
+  }
+  .profile-section, .profile-instagram-layout, .profile-tiktok-layout {
+    display: none !important;
+  }
+  .ig-mobile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 18px 0 18px;
+    font-weight: 700;
+    font-size: 1.1em;
+  }
+  .ig-mobile-username {
+    font-weight: 800;
+    font-size: 1.1em;
+  }
+  .ig-mobile-menu {
+    font-size: 1.5em;
+    color: #888;
+    cursor: pointer;
+  }
+  .ig-mobile-avatar-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px;
+  }
+  .ig-mobile-avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid var(--ciano-principal);
+    object-fit: cover;
+    background: #f8f9fa;
+  }
+  .ig-mobile-follow {
+    margin-top: 8px;
+    background: var(--azul-secundario);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 24px;
+    font-weight: 700;
+    font-size: 1em;
+    box-shadow: var(--sombra-botao);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .ig-mobile-follow:active {
+    background: var(--ciano-principal);
+  }
+  .ig-mobile-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 18px 0 0 0;
+    font-size: 1em;
+    text-align: center;
+  }
+  .ig-mobile-stats > div {
+    flex: 1;
+  }
+  .ig-mobile-stat-label {
+    color: #888;
+    font-size: 0.95em;
+    font-weight: 500;
+  }
+  .ig-mobile-bio {
+    margin: 18px 18px 0 18px;
+    font-size: 1em;
+    color: #222;
+    text-align: center;
+    min-height: 32px;
+  }
+  .ig-mobile-highlights {
+    display: flex;
+    gap: 18px;
+    overflow-x: auto;
+    padding: 18px 0 10px 18px;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+  .ig-mobile-highlights .highlight-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .ig-mobile-highlights .highlight-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2.5px solid #fff;
+    box-shadow: 0 2px 8px rgba(53,123,255,0.10);
+  }
+  .ig-mobile-highlights .highlight-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .ig-mobile-highlights .highlight-label {
+    font-size: 0.92em;
+    color: #444;
+    text-align: center;
+    max-width: 70px;
+    margin-top: 2px;
+  }
+  .ig-mobile-grid-placeholder {
+    margin: 10px 0 0 0;
+    padding: 0 8px;
+  }
+  .ig-mobile-grid-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .ig-mobile-grid-cell {
+    flex: 1;
+    aspect-ratio: 1/1;
+    background: #f3f3f3;
+    border-radius: 8px;
+    border: 1.5px solid #e3f6f5;
+    min-width: 0;
+  }
+  .ig-mobile-bottom-nav {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    background: #fff;
+    border-top: 1.5px solid #e3f6f5;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+    z-index: 1002;
+    box-shadow: 0 -2px 12px rgba(53,123,255,0.07);
+    padding-bottom: env(safe-area-inset-bottom, 0); /* Suporte para iOS */
+  }
+  .ig-mobile-nav-item {
+    flex: 1;
+    text-align: center;
+    color: #888;
+    font-size: 1.5em;
+    padding: 0;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  .ig-mobile-nav-item.active,
+  .ig-mobile-nav-item:active {
+    color: var(--azul-secundario);
+  }
+}
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 :root {
@@ -725,38 +899,30 @@ h2 {
     padding: 10px 15px;
     flex-wrap: wrap;
   }
-  
   .header-right {
     gap: 10px;
   }
-  
   .header-link {
     padding: 6px 12px;
     font-size: 0.9em;
   }
-  
   .header-button {
     padding: 8px 16px;
     font-size: 0.9em;
   }
-  
   .chat-section {
     flex-direction: column;
   }
-  
   .chat-users {
     width: 100%;
   }
-  
   .form-container {
     margin: 30px auto;
     padding: 30px 25px;
   }
-  
   .tinder-actions {
     gap: 15px;
   }
-  
   .btn-pass,
   .btn-like,
   .btn-chat {
@@ -764,11 +930,14 @@ h2 {
     height: 55px;
     font-size: 1.3em;
   }
-  
   .btn-like {
     width: 65px;
     height: 65px;
     font-size: 1.6em;
+  }
+  /* Garante espaço para navegação inferior fixa */
+  body {
+    padding-bottom: 60px !important;
   }
 }
 

@@ -1,3 +1,19 @@
+</main>
+  <!-- Navegação inferior mobile -->
+  <nav class="ig-mobile-bottom-nav" style="display:none;">
+    <a href="index.html" class="ig-mobile-nav-item" title="Início">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16"><path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 2 7.5V14a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-2h2v2a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V7.5a.5.5 0 0 0-.146-.354l-6-6zM1 7.5V14a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-2h2v2a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V7.5a1.5 1.5 0 0 0-.44-1.06l-6-6a1.5 1.5 0 0 0-2.12 0l-6 6A1.5 1.5 0 0 0 1 7.5z"></path></svg>
+    </a>
+    <a href="conhecer.html" class="ig-mobile-nav-item" title="Descobrir">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11 6a5 5 0 1 1-10 0 5 5 0 0 1 10 0zm-1.293 6.707a1 1 0 0 1-1.414 0l-3.387-3.387A6.978 6.978 0 0 1 1 6a7 7 0 1 1 7 7c-1.61 0-3.09-.538-4.293-1.293l3.387 3.387a1 1 0 0 1 0 1.414z"></path></svg>
+    </a>
+    <a href="perfil.html" class="ig-mobile-nav-item active" title="Perfil">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4-3a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM2 14s-1 0-1-1 1-4 7-4 7 3 7 4-1 1-1 1H2zm13-1c0-1-4-3-7-3s-7 2-7 3 4 3 7 3 7-2 7-3z"></path></svg>
+    </a>
+    <a href="chat.html" class="ig-mobile-nav-item" title="Chat">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10.586l2.707 2.707A1 1 0 0 0 16 14.586V4a2 2 0 0 0-2-2H2zm0-1h12a3 3 0 0 1 3 3v10.586a2 2 0 0 1-.586 1.414A2 2 0 0 1 14.586 16H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3z"></path><circle cx="4.5" cy="8.5" r="1.5"></circle><circle cx="8" cy="8.5" r="1.5"></circle><circle cx="11.5" cy="8.5" r="1.5"></circle></svg>
+    </a>
+  </nav>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -484,7 +500,7 @@
       }
       
       body {
-        background: #000;
+        background: #fff !important;
         padding-top: 0;
       }
       
@@ -540,6 +556,62 @@
   </header>
   
   <main>
+    <!-- Layout Instagram Mobile (fora da section para garantir visibilidade no mobile) -->
+    <div class="profile-instagram-mobile">
+      <div class="profile-ig-mobile-header" style="background: var(--gradient-primary); border-radius: 0 0 24px 24px; box-shadow: 0 4px 16px rgba(14,203,207,0.10); padding-bottom: 18px;">
+        <div class="ig-mobile-top" style="padding-top: 18px;">
+          <span class="ig-mobile-username" id="profile-name-mobile" style="color: var(--branco);"></span>
+          <span class="ig-mobile-menu" style="color: var(--branco);">&#9776;</span>
+        </div>
+        <div class="ig-mobile-avatar-row">
+          <img src="" alt="Avatar" id="profile-avatar-mobile" class="ig-mobile-avatar" style="box-shadow: 0 4px 16px rgba(14,203,207,0.13);">
+          <button class="ig-mobile-follow" id="btn-follow-mobile" style="display:none; margin-top: 10px;">Seguir</button>
+        </div>
+        <div class="ig-mobile-stats" style="margin-top: 18px;">
+          <div><span id="stat-posts-mobile">0</span><br><span class="ig-mobile-stat-label">Publicações</span></div>
+          <div><span id="stat-followers-mobile">0</span><br><span class="ig-mobile-stat-label">Seguidores</span></div>
+          <div><span id="stat-following-mobile">0</span><br><span class="ig-mobile-stat-label">Seguindo</span></div>
+        </div>
+        <div class="ig-mobile-bio" style="margin-top: 16px; color: var(--branco); background: rgba(255,255,255,0.08); border-radius: 12px; padding: 10px 12px;">
+          <span id="profile-bio-mobile"></span>
+        </div>
+      </div>
+      <div class="ig-mobile-highlights" id="profile-instagram-highlights-mobile" style="margin-top: 10px;"></div>
+      <div id="profile-gostos-mobile" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0 18px 0;"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin:18px 0 10px 0;">
+        <label for="profile-link-mobile" style="font-size:0.98em;color:var(--azul-secundario);font-weight:600;">Compartilhe seu perfil:</label>
+        <div style="display:flex;gap:8px;width:100%;max-width:260px;">
+          <input type="text" id="profile-link-mobile" readonly style="flex:1;padding:8px 10px;border-radius:8px;border:1.5px solid var(--ciano-principal);font-size:0.98em;">
+          <button id="copy-link-btn-mobile" type="button" style="background:var(--azul-secundario);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-weight:600;">Copiar</button>
+        </div>
+      </div>
+      <div class="ig-mobile-grid-placeholder">
+        <div class="ig-mobile-grid-row">
+          <div class="ig-mobile-grid-cell"></div>
+          <div class="ig-mobile-grid-cell"></div>
+          <div class="ig-mobile-grid-cell"></div>
+        </div>
+        <div class="ig-mobile-grid-row">
+          <div class="ig-mobile-grid-cell"></div>
+          <div class="ig-mobile-grid-cell"></div>
+          <div class="ig-mobile-grid-cell"></div>
+        </div>
+      </div>
+      <nav class="ig-mobile-bottom-nav">
+        <a href="index.html" class="ig-mobile-nav-item" title="Início">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16"><path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 2 7.5V14a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-2h2v2a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V7.5a.5.5 0 0 0-.146-.354l-6-6zM1 7.5V14a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-2h2v2a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V7.5a1.5 1.5 0 0 0-.44-1.06l-6-6a1.5 1.5 0 0 0-2.12 0l-6 6A1.5 1.5 0 0 0 1 7.5z"/></svg>
+        </a>
+        <a href="conhecer.html" class="ig-mobile-nav-item" title="Descobrir">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11 6a5 5 0 1 1-10 0 5 5 0 0 1 10 0zm-1.293 6.707a1 1 0 0 1-1.414 0l-3.387-3.387A6.978 6.978 0 0 1 1 6a7 7 0 1 1 7 7c-1.61 0-3.09-.538-4.293-1.293l3.387 3.387a1 1 0 0 1 0 1.414z"/></svg>
+        </a>
+        <a href="perfil.html" class="ig-mobile-nav-item active" title="Perfil">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4-3a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM2 14s-1 0-1-1 1-4 7-4 7 3 7 4-1 1-1 1H2zm13-1c0-1-4-3-7-3s-7 2-7 3 4 3 7 3 7-2 7-3z"/></svg>
+        </a>
+        <a href="chat.html" class="ig-mobile-nav-item" title="Chat">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10.586l2.707 2.707A1 1 0 0 0 16 14.586V4a2 2 0 0 0-2-2H2zm0-1h12a3 3 0 0 1 3 3v10.586a2 2 0 0 1-.586 1.414A2 2 0 0 1 14.586 16H2a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3z"/><circle cx="4.5" cy="8.5" r="1.5"/><circle cx="8" cy="8.5" r="1.5"/><circle cx="11.5" cy="8.5" r="1.5"/></svg>
+        </a>
+      </nav>
+    </div>
     <section class="profile-section">
       <!-- Layout Instagram (Desktop) -->
       <div class="profile-instagram-layout">
@@ -579,61 +651,7 @@
         </div>
       </div>
       
-      <!-- Layout TikTok (Mobile) -->
-      <div class="profile-tiktok-layout">
-        <div class="profile-tiktok-header">
-          <div class="profile-tiktok-avatar">
-            <img src="" alt="Avatar" id="profile-avatar-mobile">
-          </div>
-          <div class="profile-tiktok-info">
-            <h1 class="profile-tiktok-name" id="profile-name-mobile"></h1>
-            <p class="profile-tiktok-handle" id="profile-handle-mobile"></p>
-            <p class="profile-tiktok-bio" id="profile-bio-mobile"></p>
-            <div class="profile-tiktok-stats">
-              <div class="profile-tiktok-stat">
-                <span class="profile-tiktok-stat-value" id="stat-followers-mobile"></span>
-                <span class="profile-tiktok-stat-label">Seguidores</span>
-              </div>
-              <div class="profile-tiktok-stat">
-                <span class="profile-tiktok-stat-value" id="stat-following-mobile"></span>
-                <span class="profile-tiktok-stat-label">Seguindo</span>
-              </div>
-              <div class="profile-tiktok-stat">
-                <span class="profile-tiktok-stat-value" id="stat-likes-mobile"></span>
-                <span class="profile-tiktok-stat-label">Curtidas</span>
-              </div>
-            </div>
-            <div class="profile-tiktok-actions">
-              <button class="btn-tiktok-follow">Seguir</button>
-              <button class="btn-tiktok-message">Mensagem</button>
-            </div>
-            <div class="profile-tiktok-gostos" id="profile-gostos-mobile"></div>
-            <!-- QR/Link compartilhável -->
-            <div style="margin:30px 0 0 0;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
-              <div id="profile-qr-mobile"></div>
-              <div>
-                <label for="profile-link-mobile">Compartilhe seu perfil:</label>
-                <input type="text" id="profile-link-mobile" readonly style="width:220px;margin-bottom:8px;">
-                <button id="copy-link-btn-mobile" type="button">Copiar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <nav class="profile-tiktok-nav">
-          <a href="conhecer.html" class="tiktok-nav-item">
-            <span class="tiktok-nav-icon">🔍</span>
-            <span>Descobrir</span>
-          </a>
-          <a href="perfil.html" class="tiktok-nav-item active">
-            <span class="tiktok-nav-icon">👤</span>
-            <span>Perfil</span>
-          </a>
-          <a href="chat.html" class="tiktok-nav-item">
-            <span class="tiktok-nav-icon">💬</span>
-            <span>Chat</span>
-          </a>
-        </nav>
-      </div>
+
       
       <!-- Formulário de Edição (comum para ambos) -->
       <form class="edit-form-container" id="edit-form" style="display:none;flex-direction:column;gap:22px;">
@@ -672,9 +690,11 @@
     </section>
   </main>
   
+  <script src="js/qrcode.min.js"></script>
+  <script src="js/qr-code.js"></script>
   <script type="module" src="js/profile-view.js"></script>
   <script type="module" src="js/header.js"></script>
-  <script type="module" src="js/profile-share.js"></script>
+  <script src="js/profile-share.js" defer></script>
   <script type="module" src="js/profile-layout.js"></script>
 </body>
 </html>

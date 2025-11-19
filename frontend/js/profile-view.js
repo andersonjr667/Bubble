@@ -3,37 +3,129 @@ import { uploadAvatar } from './api.js';
 function logout() {
   localStorage.removeItem('bubble_token');
   location.href = 'login.html';
-}
+//
 let userId = null;
+function renderProfileWrapper() { return renderProfile.apply(this, arguments); }
+window.renderProfile = renderProfileWrapper;
 async function renderProfile() {
-  const token = localStorage.getItem('bubble_token');
-  const params = new URLSearchParams(window.location.search);
-  const profileId = params.get('id');
-  if (!token) {
-    document.getElementById('profile-card').innerHTML = '<p>Faça login para ver seu perfil.</p>';
-    document.getElementById('link-cadastro').style.display = '';
-    document.getElementById('link-login').style.display = '';
-    document.getElementById('link-conhecer').style.display = 'none';
-    document.getElementById('link-perfil').style.display = 'none';
-    document.getElementById('link-chat').style.display = 'none';
-    return;
-  }
-  let user, me;
-  if (profileId) {
-    // Visualizando perfil de outra pessoa
-    [me, user] = await Promise.all([getMe(), (await import('./api.js')).fetchUser(profileId)]);
-    userId = me._id;
-    window.userId = userId;
-  } else {
-    user = await getMe();
-    me = user;
-    userId = user._id;
-    window.userId = userId;
-  }
-  if (!user || user.message) {
-    document.getElementById('profile-card').innerHTML = '<p>Erro ao carregar perfil.</p>';
-    return;
-  }
+    // Logar dados do usuário para depuração
+    let user, me;
+    const token = localStorage.getItem('bubble_token');
+    const params = new URLSearchParams(window.location.search);
+    const profileId = params.get('id');
+    if (!token) {
+      document.getElementById('profile-card').innerHTML = '<p>Faça login para ver seu perfil.</p>';
+      document.getElementById('link-cadastro').style.display = '';
+      document.getElementById('link-login').style.display = '';
+      document.getElementById('link-conhecer').style.display = 'none';
+      document.getElementById('link-perfil').style.display = 'none';
+      document.getElementById('link-chat').style.display = 'none';
+      return;
+    }
+    if (profileId) {
+      [me, user] = await Promise.all([getMe(), (await import('./api.js')).fetchUser(profileId)]);
+      // Highlights
+      const highlightsMobile = document.getElementById('profile-instagram-highlights-mobile');
+      if (highlightsMobile) {
+        highlightsMobile.innerHTML = '';
+        if (user.gostos && user.gostos.length) {
+            const gostoImages = {
+              'musica': 'assets/highlights/musica.png',
+              'cinema': 'assets/highlights/cinema.png',
+              'esportes': 'assets/highlights/sport.png',
+              'leitura': 'assets/highlights/book.png',
+              'tecnologia': 'assets/highlights/tech.png',
+              'viagens': 'assets/highlights/travel.png',
+              'arte': 'assets/highlights/art.png',
+              'games': 'assets/highlights/game.png',
+              'culinaria': 'assets/highlights/culinaria.png',
+              'fotografia': 'assets/highlights/fotografia.png',
+              'moda': 'assets/highlights/fashion.png',
+              'danca': 'assets/highlights/danca.png',
+              'natureza': 'assets/highlights/nature.png',
+              'animais': 'assets/highlights/animal.png',
+              'politica': 'assets/highlights/politica.png',
+              'negocios': 'assets/highlights/negocios.png'
+            };
+          user.gostos.forEach(g => {
+            // Corrigir normalização igual ao desktop
+              const key = g.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/gi, '').toLowerCase();
+            const imgSrc = gostoImages[key];
+            if (imgSrc) {
+              const item = document.createElement('div');
+              item.className = 'highlight-item';
+              item.innerHTML = `<div class="highlight-circle"><img src="${imgSrc}" alt="${g}"></div><span class="highlight-label">${g}</span>`;
+              highlightsMobile.appendChild(item);
+            }
+          });
+        }
+      }
+        document.getElementById('profile-name-mobile').textContent = '[DEBUG] Usuário sem nome';
+        document.getElementById('profile-bio-mobile').textContent = '[DEBUG] user: ' + JSON.stringify(user);
+      } else {
+        document.getElementById('profile-name-mobile').textContent = user.name;
+        document.getElementById('profile-bio-mobile').textContent = user.bio || '';
+      }
+      document.getElementById('stat-posts-mobile').textContent = user.posts || '0';
+      document.getElementById('stat-followers-mobile').textContent = user.followers || '0';
+      document.getElementById('stat-following-mobile').textContent = user.following || '0';
+      // Highlights
+      const highlightsMobile = document.getElementById('profile-instagram-highlights-mobile');
+      if (highlightsMobile) {
+        highlightsMobile.innerHTML = '';
+        if (user.gostos && user.gostos.length) {
+          const gostoImages = {
+            'musica': 'assets/highlights/musica.png',
+            'cinema': 'assets/highlights/cinema.png',
+            'esportes': 'assets/highlights/sport.png',
+            'leitura': 'assets/highlights/book.png',
+            'tecnologia': 'assets/highlights/tech.png',
+            'viagens': 'assets/highlights/travel.png',
+            'arte': 'assets/highlights/art.png',
+            'games': 'assets/highlights/game.png',
+            'culinaria': 'assets/highlights/culinaria.png',
+            'fotografia': 'assets/highlights/fotografia.png',
+            'moda': 'assets/highlights/fashion.png',
+            'danca': 'assets/highlights/danca.png',
+            'natureza': 'assets/highlights/nature.png',
+            'animais': 'assets/highlights/animal.png',
+            'politica': 'assets/highlights/politica.png',
+            'negocios': 'assets/highlights/negocios.png'
+          };
+          user.gostos.forEach(g => {
+            const key = g.normalize('NFD').replace(/[\u0000-\u036f]/g, '').replace(/[^a-z0-9]/gi, '').toLowerCase();
+            const imgSrc = gostoImages[key];
+            if (imgSrc) {
+              const item = document.createElement('div');
+              item.className = 'highlight-item';
+              item.innerHTML = `<div class=\"highlight-circle\"><img src=\"${imgSrc}\" alt=\"${g}\"></div><span class=\"highlight-label\">${g}</span>`;
+              highlightsMobile.appendChild(item);
+            }
+          });
+        }
+      }
+      // Botão seguir mobile
+      const btnFollowMobile = document.getElementById('btn-follow-mobile');
+      if (btnFollowMobile) {
+        if (profileId && profileId !== me._id) {
+          btnFollowMobile.style.display = '';
+          btnFollowMobile.onclick = async () => {
+            btnFollowMobile.disabled = true;
+            btnFollowMobile.textContent = 'Seguindo...';
+            const { createConnection } = await import('./api.js');
+            const res = await createConnection(profileId);
+            if (res.status === 'pending' || res.status === 'connected') {
+              btnFollowMobile.textContent = 'Seguindo';
+            } else {
+              btnFollowMobile.textContent = 'Erro';
+            }
+          };
+        } else {
+          btnFollowMobile.style.display = 'none';
+        }
+      }
+    }
+  // (as variáveis já foram declaradas acima, não repetir)
   // Instagram/Desktop
   document.getElementById('profile-avatar').src = user.avatarUrl || 'assets/avatars/avatar1.png';
   document.getElementById('profile-name').textContent = user.name || '';
@@ -45,9 +137,8 @@ async function renderProfile() {
   document.getElementById('stat-following').textContent = user.following || '0';
   // Botão seguir e esconder botões de edição se não for o próprio perfil
   const btnFollow = document.getElementById('btn-follow');
-  const btnEdit = document.getElementById('btn-edit');
+  // btnEdit e btnDelete são declarados globalmente abaixo
   const btnLogout = document.getElementById('btn-logout');
-  const btnDelete = document.getElementById('btn-delete');
   if (profileId && profileId !== me._id) {
     if (btnFollow) {
       btnFollow.style.display = '';
@@ -170,33 +261,45 @@ async function renderProfile() {
         });
       }
     }
-  // TikTok/Mobile
+  // Mobile visual
   document.getElementById('profile-avatar-mobile').src = user.avatarUrl || 'assets/avatars/avatar1.png';
   document.getElementById('profile-name-mobile').textContent = user.name || '';
-  document.getElementById('profile-handle-mobile').textContent = (user.username ? '@' + user.username : '') + (user.age ? ' · ' + user.age + ' anos' : '');
   document.getElementById('profile-bio-mobile').textContent = user.bio || '';
+  document.getElementById('stat-posts-mobile').textContent = user.posts || '0';
   document.getElementById('stat-followers-mobile').textContent = user.followers || '0';
   document.getElementById('stat-following-mobile').textContent = user.following || '0';
-  document.getElementById('stat-likes-mobile').textContent = user.likes || '0';
-  // Gostos mobile (com emoji)
-  const gostoIcons = {
-    'Música': '🎵',
-    'Filmes': '🎬',
-    'Esportes': '🏅',
-    'Viagens': '✈️',
-    'Tecnologia': '💻',
-    'Leitura': '📚'
-  };
+  // Gostos mobile (com cor e destaque)
   const gostosMobileDiv = document.getElementById('profile-gostos-mobile');
-  gostosMobileDiv.innerHTML = '';
-  if (user.gostos && user.gostos.length) {
-    user.gostos.forEach(g => {
-      const span = document.createElement('span');
-      span.className = 'gosto-tag-tiktok';
-      const icon = gostoIcons[g] || '⭐';
-      span.innerHTML = `<span style=\"margin-right:6px;\">${icon}</span>${g}`;
-      gostosMobileDiv.appendChild(span);
-    });
+  if (gostosMobileDiv) {
+    gostosMobileDiv.innerHTML = '';
+    if (user.gostos && user.gostos.length) {
+      user.gostos.forEach(g => {
+        const span = document.createElement('span');
+        span.className = 'gosto-tag-tiktok';
+        // Substituir por ícone SVG simples (exemplo: círculo colorido)
+        span.innerHTML = `<svg width='16' height='16' style='margin-right:5px;vertical-align:middle;' fill='var(--ciano-principal)' viewBox='0 0 16 16'><circle cx='8' cy='8' r='7'/></svg>${g}`;
+        gostosMobileDiv.appendChild(span);
+      });
+    }
+  }
+  // Compartilhar perfil (mobile)
+  const shareInputMobile = document.getElementById('profile-link-mobile');
+  const copyBtnMobile = document.getElementById('copy-link-btn-mobile');
+  if (shareInputMobile) {
+    const idToShare = (profileId || user._id);
+    const url = window.location.origin + window.location.pathname + '?id=' + idToShare;
+    shareInputMobile.value = url;
+    if (copyBtnMobile) {
+      copyBtnMobile.onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(url);
+        } catch {
+          shareInputMobile.select();
+          document.execCommand('copy');
+        }
+        showToast('Link copiado!');
+      };
+    }
   }
   // Preenche formulário de edição
   document.getElementById('edit-name').value = user.name || '';
@@ -207,12 +310,17 @@ async function renderProfile() {
     cb.checked = user.gostos && user.gostos.includes(cb.value);
   });
 }
+
+
 window.logout = logout;
-renderProfile();
-window.addEventListener('storage', renderProfile);
+
+// Garante que renderProfile está disponível globalmente após a definição
+window.renderProfile = renderProfile;
+window.addEventListener('storage', () => window.renderProfile());
+window.addEventListener('DOMContentLoaded', () => window.renderProfile());
 
 // Edição de perfil
-const btnEdit = document.getElementById('btn-edit');
+let btnEdit = document.getElementById('btn-edit');
 const btnCancel = document.getElementById('btn-cancel');
 const editForm = document.getElementById('edit-form');
 const profileCard = document.getElementById('profile-card');
@@ -243,7 +351,7 @@ if (editForm) {
       showToast('Perfil atualizado!');
       editForm.style.display = 'none';
       profileCard.style.display = '';
-      renderProfile();
+      window.renderProfile();
     } else {
       showToast(res.message || 'Erro ao atualizar perfil');
     }
@@ -297,7 +405,7 @@ if (editForm) {
   });
 }
 // Excluir perfil
-const btnDelete = document.getElementById('btn-delete');
+let btnDelete = document.getElementById('btn-delete');
 if (btnDelete) {
   btnDelete.onclick = async () => {
     if (confirm('Tem certeza que deseja excluir seu perfil? Esta ação não pode ser desfeita.')) {

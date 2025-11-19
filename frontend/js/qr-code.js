@@ -1,6 +1,6 @@
 // Gera QR code usando a biblioteca QRCode.js (https://davidshimjs.github.io/qrcodejs/)
 // Este arquivo deve ser incluído como módulo na página de perfil
-export function gerarQRCode(elementId, url) {
+function gerarQRCode(elementId, url) {
   if (!window.QRCode) {
     console.error('QRCode.js não carregado');
     return;
@@ -17,3 +17,5 @@ export function gerarQRCode(elementId, url) {
     correctLevel: window.QRCode.CorrectLevel.H
   });
 }
+// Torna a função global
+window.gerarQRCode = gerarQRCode;
