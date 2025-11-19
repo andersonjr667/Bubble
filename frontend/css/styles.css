@@ -255,20 +255,39 @@ body {
 
 @media (max-width: 768px) {
   .bubble-header {
-    flex-direction: column;
-    align-items: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     padding: 10px 15px;
+    height: auto;
+    min-height: 60px;
   }
 
   .header-left {
-    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .header-left img {
+    height: 32px !important;
+  }
+
+  .bubble-title {
+    font-size: 1.3em;
+    font-weight: 800;
+    letter-spacing: 0.5px;
   }
 
   .header-right {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    gap: 5px;
+    display: none;
   }
 
   .header-link {
@@ -290,6 +309,10 @@ body {
   .header-link.active::after {
     left: 0;
     transform: none;
+  }
+
+  body {
+    padding-top: 60px;
   }
 }
 
